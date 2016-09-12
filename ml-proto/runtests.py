@@ -8,7 +8,7 @@ import glob
 import sys
 
 # Set to run tests through JS as well
-jsCommand = ""
+jsCommand = "../../../v8/v8/out/ia32.debug/d8 --expose-wasm --trace-wasm-decoder --wasm-num-compilation-tasks=0"
 
 def auxFile(path):
     try:

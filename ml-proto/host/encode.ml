@@ -153,7 +153,7 @@ let encode m =
       | BrTable (n, xs, x) -> op 0x08; vu n; vec var xs; var x
       | Return -> op 0x09
       | Nop -> op 0x0a
-      | Drop -> op 0x0b
+      | Drop -> op (*0x0b*) 0x1a  (* HACK *)
 
       | Const {it = I32 c} -> op 0x10; vs32 c
       | Const {it = I64 c} -> op 0x11; vs64 c
@@ -404,8 +404,9 @@ let encode m =
       let {ttype} = tab.it in
       table_type ttype
 
+    let singleton f xs = f (List.hd xs)  (* HACK *)
     let table_section tabs =
-      section 4 (vec table) tabs (tabs <> [])
+      section 4 (singleton table) tabs (tabs <> [])  (* HACK *)
 
     (* Memory section *)
     let memory mem =
@@ -413,7 +414,7 @@ let encode m =
       memory_type mtype
 
     let memory_section mems =
-      section 5 (vec memory) mems (mems <> [])
+      section 5 (singleton memory) mems (mems <> [])  (* HACK *)
 
     (* Global section *)
     let global g =

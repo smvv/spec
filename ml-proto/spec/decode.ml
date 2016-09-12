@@ -270,7 +270,7 @@ let rec instr s =
     br_table n xs x
   | 0x09 -> return
   | 0x0a -> nop
-  | 0x0b -> drop
+  | (* 0x0b *) 0x1a -> drop  (* HACK *)
   | 0x0c | 0x0d | 0x0e as b -> illegal s pos b
   | 0x0f -> error s pos "misplaced END opcode"
 
@@ -287,7 +287,7 @@ let rec instr s =
 
   | 0x19 -> tee_local (at var s)
 
-  | 0x1a | 0x1b | 0x1c | 0x1d | 0x1e | 0x1f as b -> illegal s pos b
+  (*| 0x1a*) (* HACK *) | 0x1b | 0x1c | 0x1d | 0x1e | 0x1f as b -> illegal s pos b
 
   | 0x20 -> let a, o = memop s in i32_load8_s a o
   | 0x21 -> let a, o = memop s in i32_load8_u a o
@@ -545,8 +545,9 @@ let table s =
   let ttype = table_type s in
   {ttype}
 
+let singleton f s = [f s]  (* HACK *)
 let table_section s =
-  section `TableSection (vec (at table)) [] s
+  section `TableSection (singleton (at table)) [] s  (* HACK *)
 
 
 (* Memory section *)
@@ -556,7 +557,7 @@ let memory s =
   {mtype}
 
 let memory_section s =
-  section `MemorySection (vec (at memory)) [] s
+  section `MemorySection (singleton (at memory)) [] s  (* HACK *)
 
 
 (* Global section *)
