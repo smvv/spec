@@ -15,10 +15,10 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+pwd = os.path.abspath('.')
+sys.path.insert(0, pwd)
 
 # -- General configuration ------------------------------------------------
 
@@ -35,6 +35,7 @@ extensions = [
   'sphinx.ext.mathjax',
   'sphinx.ext.ifconfig',
   'sphinx.ext.githubpages',
+  'mathmacro',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -467,3 +468,8 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #
 # epub_use_index = True
+
+# Macros
+rst_prolog = """
+.. include:: /""" + pwd + """/macros.rst
+"""

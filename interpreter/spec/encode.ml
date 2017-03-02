@@ -124,7 +124,7 @@ let encode m =
     let global_type = function
       | GlobalType (t, mut) -> value_type t; mutability mut
 
-    (* Expressions *)
+    (* Instructions *)
 
     open Source
     open Ast

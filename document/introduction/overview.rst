@@ -1,12 +1,15 @@
 Overview
 --------
 
+Concepts
+~~~~~~~~
+
 WebAssembly encodes a low-level, assembly-like programming language.
 This language is structured around the following main concepts.
 
 * **Values**.
   WebAssembly provides only four basic *value types*.
-  These are integers and :ref:`IEEE-754 floating point <http://ieeexplore.ieee.org/document/4610935/>` numbers,
+  These are integers and `IEEE-754 floating point <http://ieeexplore.ieee.org/document/4610935/>`_ numbers,
   each in 32 and 64 bit width.
   32 bit integers also serve as Booleans and as memory addresses.
   The usual operations on these types are available,
@@ -61,30 +64,50 @@ This language is structured around the following main concepts.
   as well as mutable or immutable *global variables*.
   Definitions can also be *imported*, specifying a module/name pair and a suitable type.
   Each definition can optionally be *exported* under one or more names.
-
-  A module must be *instantiated* before its exports can be used.
-  An *instance* is the dynamic representation of a module,
-  complete with its own state and execution stack.
-  Instantiation requires providing definitions for all imports,
-  which may be exports from previously created instances.
-  WebAssembly computations can be initiated by invoking an exported function of an instance.
   In addition to definitions, a module can define initialization data for its memory or table
-  that takes the form of *segments* copied to given offsets upon instantiation.
-  It can also define a *start function* that is automatically executed after instantiation.
-
-* **Validation**.
-  To be instantiated, a module must be *valid*.
-  Validation checks a number of well-formedness conditions to guarantee that the module is meaningful and safe.
-  In particular, it performs *type checking* of functions and the instruction sequences in their bodies, ensuring for example that the operand stack is used consistently.
+  that takes the form of *segments* copied to given offsets.
+  It can also define a *start function* that is automatically executed.
 
 * **Embedder**.
   A WebAssembly implementation will typically be *embedded* into a *host* environment.
-  Instantiation of modules and invocation of exports are operations within this environment.
-  An embedder can also provide operations to create and initialize memories or tables imported by a module.
-  Furthermore, functions from the host environment may be supplied as imports to WebAssembly modules.
+  This environment defines how loading of modules is initiated,
+  how imports are provided (including host-side definitions), and how exports can be accessed.
   However, the details of any particular embedding are beyond the scope of this specification, and will instead be provided by complementary, environment-specific API definitions.
 
 
 .. [#stackmachine] In practice, implementations need not maintain an actual operand stack. Instead, the stack can be viewed as a set of anonymous registers that are implicitly referenced by instructions. The :ref:`type system <validation>` ensures that the stack height, and thus any referenced register, is always known statically.
 
 .. [#arity] In the current version of WebAssembly, there may be at most one result value.
+
+
+Semantic Phases
+~~~~~~~~~~~~~~~
+
+Conceptually, the semantics of WebAssembly is divided into three phases.
+For each part of the language, the specification specifies each of them.
+
+* **Decoding**.
+  WebAssembly modules are distributed in a _binary format_.
+  *Decoding* processes that format and converts it into an internal representation of a module.
+  In this specification, this representation is modelled by _abstract syntax_, but a real implementation could compile directly to machine code instead.
+
+* **Validation**.
+  A decoded module has to be *valid*.
+  Validation checks a number of well-formedness conditions to guarantee that the module is meaningful and safe.
+  In particular, it performs *type checking* of functions and the instruction sequences in their bodies, ensuring for example that the operand stack is used consistently.
+
+* **Execution**.
+  Finally, a valid module can be *executed*.
+  Execution can be further divided into two phases:
+
+  - **Instantiation**.
+    An *instance* is the dynamic representation of a module,
+    complete with its own state and execution stack.
+    Instantiation executes the module body itself given definitions for all its imports.
+    It initializes globals, memories and tables and invokes the module's start function if defined.
+    It returns the instances of the module's exports.
+  - **Invocation**.
+    Once instantiated, further WebAssembly computations can be initiated by *invoking* an exported function of an instance.
+    Given the required arguments, that executes the respective function and returns its results.
+
+  Instantiation and invocation are operations within the embedding environment.

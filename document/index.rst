@@ -9,11 +9,18 @@ WebAssembly Specification
    :maxdepth: 2
 
    introduction/index
-   concepts/index
+   conventions/index
+   basics/index
    modules/index
    instructions/index
+   appendix-grammar/index
+   appendix-binary/index
+   appendix-validation/index
+   appendix-execution/index
    appendix-properties/index
    appendix-algorithm/index
+   appendix-textual/index
+   appendix-names/index
 
 .. only:: html
 

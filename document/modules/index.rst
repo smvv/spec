@@ -7,8 +7,6 @@ Modules
    :maxdepth: 2
 
    overview
-   instantiation
-   invocation
    type-section
    import-section
    function-section
@@ -21,7 +19,5 @@ Modules
    code-section
    data-section
    user-section
-   summary-grammar
-   summary-validation
-   summary-execution
-   summary-binary
+   instantiation
+   invocation

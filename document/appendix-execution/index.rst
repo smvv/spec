@@ -1,27 +1,29 @@
-Summary: Execution of Modules
------------------------------
+Appendix: Execution Summary
+---------------------------
+
+Modules
+~~~~~~~
 
 Instantiation
-~~~~~~~~~~~~~
+.............
 
 .. index::
    single: instantiation
    single: modules; instantiation
    single: execution; modules (instantiation)
 
-.. todo::
-
-   Summary of instantiation rules
-
 
 Invocation
-~~~~~~~~~~
+..........
 
 .. index::
    single: invocation
    single: exports; invocation
    single: execution; exports (invocation)
 
-.. todo::
 
-   Summary of invocation rules
+Instructions
+~~~~~~~~~~~~
+
+.. index::
+   pair: execution; instructions

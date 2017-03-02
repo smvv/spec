@@ -4,8 +4,8 @@ Concepts
 .. toctree::
    :maxdepth: 2
 
-   overview
-   conventions
+   introduction
+   syntax
    binary
    validation
    execution
