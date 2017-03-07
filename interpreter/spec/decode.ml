@@ -179,7 +179,7 @@ let global_type s =
   GlobalType (t, mut)
 
 
-(* Decode instructions *)
+(* Instructions *)
 
 open Ast
 open Operators

@@ -9,7 +9,7 @@ They are defined by the following grammar:
 
 .. math::
    \begin{array}{llll}
-   \production{(value types)} & \valtype &::=& \i32 ~|~ \i64 ~|~ \f32 ~|~ \f64 \\
+   \production{(value types)} & \valtype &::=& \I32 ~|~ \I64 ~|~ \F32 ~|~ \F64 \\
    \end{array}
 
 The types |i32| and |i64| classify 32 and 64 bit integers, respectively.
@@ -18,7 +18,8 @@ Integers are not inherently signed or unsigned, their interpretation is determin
 The types |f32| and |f64| classify 32 and 64 bit floating points, respectively.
 They correspond to single and double precision floating point types as defined by the `IEEE-754 <http://ieeexplore.ieee.org/document/4610935/>`_ standard
 
-The following convention is adopted:
+Covnentions
+...........
 
 * The meta variable :math:`t` ranges over value types where clear from context.
 
@@ -27,10 +28,10 @@ Binary Encoding
 
 .. math::
    \begin{array}{lll@{\qquad\qquad}l}
-   \encode{\i32}{\valtype} &=& \hex{7F} \\
-   \encode{\i64}{\valtype} &=& \hex{7E} \\
-   \encode{\f32}{\valtype} &=& \hex{7D} \\
-   \encode{\f64}{\valtype} &=& \hex{7C} \\
+   \encode{\I32}{\valtype} &=& \hex{7F} \\
+   \encode{\I64}{\valtype} &=& \hex{7E} \\
+   \encode{\F32}{\valtype} &=& \hex{7D} \\
+   \encode{\F64}{\valtype} &=& \hex{7C} \\
    \end{array}
 
 .. note::
@@ -87,7 +88,7 @@ They are defined by the following grammar:
 .. math::
    \begin{array}{llll}
    \production{(table types)} & \tabletype &::=& \elemtype[\limits] \\
-   \production{(element types)} & \elemtype &::=& \anyfunc \\
+   \production{(element types)} & \elemtype &::=& \ANYFUNC \\
    \production{(limits)} & \limits &::=& \uint32~\uint32^? \\
    \end{array}
 
@@ -102,7 +103,7 @@ Binary Encoding
 
 .. math::
    \begin{array}{lll@{\qquad\qquad}l}
-   \encode{\anyfunc}{\elemtype} &=& \hex{70} \\
+   \encode{\ANYFUNC}{\elemtype} &=& \hex{70} \\
    \encode{t[n~m^?]}{\tabletype} &=& \encode{t}{\elemtype}~\encode{n~m^?}{\limits} \\
    ~ \\
    \encode{n}{\limits} &=& \hex{00}~\encode{n}{\uint32} \\
@@ -118,7 +119,7 @@ They are defined by the following grammar:
 
 .. math::
    \begin{array}{llll}
-   \production{(memory types)} & \memtype &::=& [\limits] \\
+   \production{(memory types)} & \memtype &::=& \PAGE[\limits] \\
    \end{array}
 
 Like tables, memories are constrained by limits for the minimum and optional maximum size.
@@ -129,7 +130,7 @@ Binary Encoding
 
 .. math::
    \begin{array}{lll@{\qquad\qquad}l}
-   \encode{[n~m^?]}{\memtype} &=& \encode{n~m^?}{\limits} \\
+   \encode{\PAGE[n~m^?]}{\memtype} &=& \encode{n~m^?}{\limits} \\
    \end{array}
 
 
@@ -141,8 +142,8 @@ They are defined by the following grammar:
 
 .. math::
    \begin{array}{llll}
-   \production{(global types)} & \globaltype &::=& \mutability~\valtype \\
-   \production{(mutability)} & \mutability &::=& \mut^? \\
+   \production{(global types)} & \globaltype &::=& \mut~\valtype \\
+   \production{(mutability)} & \mut &::=& \MUT^? \\
    \end{array}
 
 Binary Encoding
@@ -150,9 +151,9 @@ Binary Encoding
 
 .. math::
    \begin{array}{lll@{\qquad\qquad}l}
-   \encode{\mut^?~t}{\globaltype} &=& \encode{t}{\valtype}~\encode{\mut^?}{\mutability} \\
-   \encode{\epsilon}{\mutability} &=& \hex{00} \\
-   \encode{\mut}{\mutability} &=& \hex{01} \\
+   \encode{\MUT^?~t}{\globaltype} &=& \encode{t}{\valtype}~\encode{\MUT^?}{\mut} \\
+   \encode{\epsilon}{\mut} &=& \hex{00} \\
+   \encode{\MUT}{\mut} &=& \hex{01} \\
    \end{array}
 
 
@@ -164,5 +165,5 @@ They are defined by the following grammar:
 
 .. math::
    \begin{array}{llll}
-   \production{(external types)} & \externtype &::=& \func~\functype ~|~ \table~\tabletype ~|~ \memory~\memtype ~|~ \glboal~\globaltype \\
+   \production{(external types)} & \externtype &::=& \FUNC~\functype ~|~ \TABLE~\tabletype ~|~ \MEMORY~\memtype ~|~ \GLOBAL~\globaltype \\
    \end{array}

@@ -3,7 +3,7 @@ Validation
 
 .. index:: !validation
 
-Validation is described in terms of rules specifying constraints on phrases of abstract syntax.
+Validation is described *declaratively* in terms of rules specifying constraints on phrases of abstract syntax.
 These can be understood as typing rules.
 
 For every construct, the validation rules are given in two equivalent forms:
@@ -26,11 +26,10 @@ Validity of a definition is defined relative to a *context* :math:`C`, which col
 * *Memory*: the optional memory declared in the current module, represented by its memory type.
 * *Globals*: the list of globals declared in the current module, represented by their global type.
 * *Locals*: the list of locals declared in the current function (including parameters), represented by their value type.
-* *Result*: the result type of the current function.
-* *Labels*: the stack of labels accesible from the current position, represented by their label type.
+* *Labels*: the stack of labels accessible from the current position, represented by their result type.
 
-Locals, result, and labels are only used for validating function bodies, and are left empty elsewhere.
-The labels stack is the only part of the context that changes as validation of a function body proceeds.
+Locals and labels are only used for validating function bodies, and are left empty elsewhere.
+The label stack is the only part of the context that changes as validation of a function body proceeds.
 
 Formally, a context can be defined as a record of the aforementioned components, described by the following grammar:
 
@@ -38,24 +37,23 @@ Formally, a context can be defined as a record of the aforementioned components,
    \begin{array}{llll}
    \mbox{(context)} & C &::=&
      \begin{array}[t]{l@{~}lll}
-     \{ & \types &=& \functype^\ast, \\
-        & \funcs &=& \functype^\ast, \\
-        & \table &=& \tabletype^?, \\
-        & \memory &=& \memtype^?, \\
-        & \globals &=& \globaltype^\ast, \\
-        & \locals &=& \valtype^ast, \\
-        & \result &=& \valtype^?, \\
-        & \labels &=& \labeltype^\ast ~\} \\
+     \{ & \TYPES &=& \href{../basics/types.html#function-types}{\functype}^\ast, \\
+        & \FUNCS &=& \href{../basics/types.html#function-types}{\functype}^\ast, \\
+        & \TABLE &=& \href{../basics/types.html#table-types}{\tabletype}^?, \\
+        & \MEMORY &=& \href{../basics/types.html#memory-types}{\memtype}^?, \\
+        & \GLOBALS &=& \href{../basics/types.html#global-types}{\globaltype}^\ast, \\
+        & \LOCALS &=& \href{../basics/types.html#value-types}{\valtype}^\ast, \\
+        & \LABELS &=& \href{../basics/types.html#result-types}{\resulttype}^\ast ~\} \\
      \end{array}
    \end{array}
 
 
-Formal Notaiton
+Formal Notation
 ~~~~~~~~~~~~~~~
 
 .. note::
-   This section gives a brief explanation of the formal notation.
-   A more thorough introduction can be found in respective text books. [#tapl]_
+   This section gives a brief explanation of the notation for specifying typing rules formally.
+   For the interested reader, a more thorough introduction can be found in respective text books. [#tapl]_
 
 The proposition that a phrase :math:`x` has a type :math:`t` is written :math:`x : t`.
 In general, however, typing is dependent on a context :math:`C`.
@@ -74,7 +72,8 @@ Every rule has the following general form:
    }
 
 Such a rule is read as a big implication: if all premises hold, then the conclusion holds.
-Some rules have no premises; they are called axioms and their conclusion holds unconditionally.
+Some rules have no premises; they are *axioms* whose conclusion holds unconditionally.
+
 A judgement holds when there is a deduction rule with a matching conclusion for which all premises hold, recursively until only axioms are reached.
 
 .. note::
@@ -83,7 +82,7 @@ A judgement holds when there is a deduction rule with a matching conclusion for 
    .. math::
       \X{expr} ~~::=~~ \X{num} ~|~ \X{ident} ~|~ \X{expr} + \X{expr} ~|~ \X{expr} = \X{expr} ~|~ \K{if}~\X{expr}~\X{expr}~\X{expr}
 
-   The typing rules for this language are the following:
+   The typing rules for this language can be expressed as follows:
 
    .. math::
       \frac{
@@ -125,7 +124,7 @@ A judgement holds when there is a deduction rule with a matching conclusion for 
         C \vdash \K{if}~\X{expr}_1~\X{expr}_2~\X{expr}_3 : t
       }
 
-   There is one rule for each syntactic construct.
+   There is one rule for each syntactic construct, defining the typing of that construct.
    The rule for numbers is an axiom.
    The rule for identifiers refers to the context :math:`C` to look up its type :math:`t`
    (in this type system, the context is simply a mapping from identifiers to types).
@@ -141,4 +140,4 @@ A judgement holds when there is a deduction rule with a matching conclusion for 
 
 
 .. [#tapl]
-   for example: Benjamin Pierce. `Types and Programming Languages <https://www.cis.upenn.edu/~bcpierce/tapl/>`_. The MIT Press 2002
+   For example: Benjamin Pierce. `Types and Programming Languages <https://www.cis.upenn.edu/~bcpierce/tapl/>`_. The MIT Press 2002

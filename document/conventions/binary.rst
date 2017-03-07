@@ -14,7 +14,7 @@ functions that map :ref:`abstract syntax <sec-abstract-syntax>` to sequences of 
 
 Some syntactic phrases have multiple possible encodings.
 For example, numbers may be encoded as if they had optional leading zeros.
-Consequently, the encoding function is in fact defined to yield a (non-empty) *set* of possible byte sequences for each input phrase.
+Consequently, encoding functions are in fact defined to yield a (non-empty) *set* of possible byte sequences for each phrase.
 Implementations of encoders producing WebAssembly binaries can pick any encoding contained in these sets.
 
 .. [#compression]
@@ -32,8 +32,8 @@ Where multiple encodings are possible, a decoder must accept all of them.
 Conversely, a decoder must reject all inputs that are not a possible encoding for any phrase. 
 
 
-Formal Notation
-~~~~~~~~~~~~~~~
+Notation
+~~~~~~~~
 
 The following notation is adopted in defining binary encoding functions.
 
@@ -43,15 +43,17 @@ The following notation is adopted in defining binary encoding functions.
 
 * :math:`\byte(n)` denotes the byte value of the natural number :math:`n` (for :math:`0 \leq n < 256`).
 
-* :math:`\encode{x}{t}` denotes the set of encodings of :math:`x` of syntactic class :math:`t`. Usually :math:`t` is clear from context and omitted to avoid clutter.
-
-* The concatenation :math:`A~B` denotes the set of all encodings that are the concatenation of an element from encoding :math:`A` with an element from encoding :math:`B`.
+* :math:`\encode{x}{t}` denotes the set of encodings of :math:`x` of syntactic class :math:`t`.
 
   .. note::
-     For example, the set :math:`\encode{10}{\uint8}` of encodings of the |uint8| value :math:`10` is :math:`\{\hex{0A}, \hex{8A}~\hex{00}\}`.
-     The concatenation :math:`\encode{10}{\uint8}~\encode{13}{\uint8}` yields the set :math:`\{\hex{0A}~\hex{0D}, \hex{0A}~\hex{8D}~\hex{00}, \hex{8A}~\hex{00}~\hex{0D}, \hex{8A}~\hex{00}~\hex{8D}~\hex{00}\}` of possible encodings.
+     For example, :math:`\encode{10}{\uint8}` denotes the set of encodings of the |uint8| value :math:`10`, which is :math:`\{\hex{0A},` :math:`\hex{8A}~\hex{00}\}`.
 
-* The definition of the encoding function is given in clause form:
+* The concatenation :math:`A~B` denotes the set of all encodings that are concatenations of an element from encoding :math:`A` with an element from encoding :math:`B`.
+
+  .. note::
+     For example, the concatenation :math:`\encode{10}{\uint8}~\encode{13}{\uint8}` yields the set :math:`\{\hex{0A}~\hex{0D},` :math:`\hex{0A}~\hex{8D}~\hex{00},` :math:`\hex{8A}~\hex{00}~\hex{0D},` :math:`\hex{8A}~\hex{00}~\hex{8D}~\hex{00}\}` of possible encodings.
+
+* The definition of encoding functions is given in clause form:
 
   .. math::
      \begin{array}{lll@{\qquad}l}

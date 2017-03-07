@@ -13,10 +13,7 @@ WebAssembly Specification
    basics/index
    modules/index
    instructions/index
-   appendix-grammar/index
-   appendix-binary/index
-   appendix-validation/index
-   appendix-execution/index
+   appendix-summary/index
    appendix-properties/index
    appendix-algorithm/index
    appendix-textual/index

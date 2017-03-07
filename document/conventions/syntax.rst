@@ -4,8 +4,7 @@ Abstract Syntax
 .. index:: !notation
 .. index:: !abstract syntax
 
-This specification defines WebAssembly as a programming language,
-in terms of an *abstract syntax*.
+WebAssembly is defined in terms of an *abstract syntax*.
 
 
 Grammar
@@ -23,10 +22,10 @@ The following conventions are adopted in defining grammar rules.
   (This is a shorthand for :math:`x^n` used where :math:`n` is not relevant.)
 
 * :math:`x^+` is a non-empty sequence of iterations of :math:`x`.
-  (This is a shorthand for :math:`x^n` used where :math:`n \geq 1` but is not otherwise relevant.)
+  (This is a shorthand for :math:`x^n` where :math:`n \geq 1`.)
 
 * :math:`x^?` is an optional occurrence of :math:`x`.
-  (This is a shorthand for :math:`x^n` used where :math:`n \leq 1` but is not otherwise relevant.)
+  (This is a shorthand for :math:`x^n` where :math:`n \leq 1`.)
 
 Each non-terminal defines a syntactic class.
 
@@ -40,9 +39,13 @@ When dealing with syntactic constructs the following notation is also used:
 
 * :math:`|s|` denotes the length of a sequence :math:`s`.
 
-* :math:`s[i]` denotes the :math:`i`-th element of a sequence :math:`s`.
+* :math:`s[i]` denotes the :math:`i`-th element of a sequence :math:`s`, starting from :math:`0`.
 
-For convenience, some objects of the semantic domain are defined syntactically with a grammar.
+
+Semantic Objects
+~~~~~~~~~~~~~~~~
+
+For convenience, some objects of the semantic domain are also defined syntactically.
 In particular, grammars of the following form define *records* that collect different semantic information:
 
 .. math::

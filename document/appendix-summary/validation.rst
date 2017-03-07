@@ -1,5 +1,5 @@
-Appendix: Validation Summary
-----------------------------
+Validation Summary
+------------------
 
 Modules
 ~~~~~~~
@@ -7,9 +7,15 @@ Modules
 .. index::
    pair: validation; modules
 
+.. todo::
+   Collect
+
 
 Instructions
 ~~~~~~~~~~~~
 
 .. index::
    pair: validation; instructions
+
+.. todo::
+   Collect

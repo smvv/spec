@@ -61,7 +61,7 @@ type loadop = (Memory.mem_size * Memory.extension) memop
 type storeop = Memory.mem_size memop
 
 
-(* Expressions *)
+(* Instructions *)
 
 type var = int32 Source.phrase
 type literal = Values.value Source.phrase

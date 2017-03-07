@@ -18,6 +18,6 @@ Modules
    element-section
    code-section
    data-section
-   user-section
+   custom-section
    instantiation
    invocation

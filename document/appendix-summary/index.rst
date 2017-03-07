@@ -1,5 +1,5 @@
-Conventions
-===========
+Appendix: Rules Summary
+=======================
 
 .. toctree::
    :maxdepth: 2

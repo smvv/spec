@@ -57,7 +57,7 @@ master_doc = 'index'
 name = 'WebAssembly'
 project = u'WebAssembly'
 title = u'WebAssembly Specification'
-copyright = u'2016, WebAssembly Community Group'
+copyright = u'2017, WebAssembly Community Group'
 author = u'WebAssembly Community Group'
 logo = 'placeholder.jpg'
 
@@ -281,7 +281,7 @@ latex_elements = {
   'pointsize': '10pt',
 
    # Additional stuff for the LaTeX preamble.
-   'preamble': '',
+   'preamble': '\def\href#1{}',
 
    # Latex figure (float) alignment
   'figure_align': 'htbp',
@@ -323,7 +323,7 @@ latex_show_urls = 'footnote'
 #
 # latex_appendices = []
 
-# It false, will not define \strong, \code, titleref, \crossref ... but only
+# It false, will not define \strong, \code, \titleref, \crossref ... but only
 # \sphinxstrong, ..., \sphinxtitleref, ... To help avoid clash with user added
 # packages.
 #
