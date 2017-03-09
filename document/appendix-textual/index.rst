@@ -1,3 +1,5 @@
+.. text-format:
+
 Appendix: Text Format
 ---------------------
 

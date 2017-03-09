@@ -87,9 +87,9 @@ Conceptually, the semantics of WebAssembly is divided into three phases.
 For each part of the language, the specification specifies each of them.
 
 **Decoding**
-  WebAssembly modules are distributed in a _binary format_.
+  WebAssembly modules are distributed in a *binary format*.
   *Decoding* processes that format and converts it into an internal representation of a module.
-  In this specification, this representation is modelled by _abstract syntax_, but a real implementation could compile directly to machine code instead.
+  In this specification, this representation is modelled by *abstract syntax*, but a real implementation could compile directly to machine code instead.
 
 **Validation**
   A decoded module has to be *valid*.

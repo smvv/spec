@@ -7,17 +7,34 @@ Numbers
 .. math::
    \encoding
    \begin{array}{lll@{\qquad\qquad}l}
-   \encodex{n}{\uX{N}} &=& \byte(n) & (n < 128) \\
-   \encodex{m \cdot 128 + n}{\uX{N}} &=& \byte(n+128)~\encodex{m}{\uX{N-7}} & (n < 128 \wedge N > 7) \\
+   \encodex{n}{\uX{N}} &=&
+     \byte(n)
+     & (n < 128) \\
+   \encodex{m \cdot 128 + n}{\uX{N}} &=&
+     \byte(n+128)~
+     \encodex{m}{\uX{N-7}}
+     & (n < 128 \wedge N > 7) \\
    ~ \\
-   \encodex{n}{\sX{N}} &=& \byte(n) & (0 \leq n < 64) \\
-   \encodex{-n}{\sX{N}} &=& \byte(128-n) & (0 < n \leq 64) \\
-   \encodex{\pm m \cdot 128 + n}{\sX{N}} &=& \byte(n+128)~\encodex{\pm m}{\sX{N-7}} & (n < 128 \wedge N > 7) \\
+   \encodex{n}{\sX{N}} &=&
+     \byte(n)
+     & (0 \leq n < 64) \\
+   \encodex{-n}{\sX{N}} &=&
+     \byte(128-n)
+     & (0 < n \leq 64) \\
+   \encodex{\pm m \cdot 128 + n}{\sX{N}} &=&
+     \byte(n+128)~
+     \encodex{\pm m}{\sX{N-7}}
+     & (n < 128 \wedge N > 7) \\
    ~ \\
-   \encodex{n}{\iX{N}} &=& \encodex{n}{\sX{N}} & (-2^{N-1} \leq n < 2^{N-1}) \\
-   \encodex{n}{\iX{N}} &=& \encodex{n-2^N}{\sX{N}} & (n \geq 2^{N-1}) \\
+   \encodex{n}{\iX{N}} &=&
+     \encodex{n}{\sX{N}}
+     & (-2^{N-1} \leq n < 2^{N-1}) \\
+   \encodex{n}{\iX{N}} &=&
+     \encodex{n-2^N}{\sX{N}}
+     & (n \geq 2^{N-1}) \\
    ~ \\
-   \encodex{z}{\fX{N}} &=& z \\
+   \encodex{z}{\fX{N}} &=&
+     z \\
    \end{array}
 
 
@@ -27,8 +44,9 @@ Vectors
 .. math::
    \encoding
    \begin{array}{lll@{\qquad\qquad}l}
-   \encodex{[x^n]}{\vec(\_)} &=& \encodex{n}{\href{#numbers}{\u32}}~\encode{x}^n \\
-   ~ \\
+   \encodex{[x^n]}{\vec(\_)} &=&
+     \encodex{n}{\href{#numbers}{\u32}}~
+     \encode{x}^n \\
    \end{array}
 
 
@@ -38,8 +56,10 @@ Strings
 .. math::
    \encoding
    \begin{array}{lll@{\qquad\qquad}l}
-   \encodex{[b^\ast]}{\string} &=& \encode{[b^\ast]} \\
-   \encodex{s}{\name} &=& \encodex{s}{\string} \\
+   \encodex{[b^\ast]}{\string} &=&
+     \encode{[b^\ast]} \\
+   \encodex{s}{\name} &=&
+     \encodex{s}{\string} \\
    \end{array}
 
 
@@ -53,20 +73,36 @@ Types
    \encodex{\I64}{\valtype} &=& \hex{7E} \\
    \encodex{\F32}{\valtype} &=& \hex{7D} \\
    \encodex{\F64}{\valtype} &=& \hex{7C} \\
-   ~\\
-   \encodex{t_1^\ast \to t_2^?}{\functype} &=& \hex{60}~\encode{[t_1^\ast]}~\encode{[t_2^?]} \\
    ~ \\
-   \encodex{\ANYFUNC}{\elemtype} &=& \hex{70} \\
-   \encodex{\limits~\elemtype}{\tabletype} &=& \encode{\elemtype}~\encode{\limits} \\
-   \encodex{\limits}{\memtype} &=& \encode{\limits} \\
+   \encodex{t_1^\ast \to t_2^?}{\functype} &=&
+     \hex{60}~
+     \encode{[t_1^\ast]}~
+     \encode{[t_2^?]} \\
    ~ \\
-   \encodex{n}{\limits} &=& \hex{00}~\encodex{n}{\href{#numbers}{\u32}} \\
-   \encodex{n~m}{\limits} &=& \hex{01}~\encodex{n}{\href{#numbers}{\u32}}~\encodex{m}{\href{#numbers}{\u32}} \\
+   \encodex{\ANYFUNC}{\elemtype} &=&
+     \hex{70} \\
+   \encodex{\limits~\elemtype}{\tabletype} &=&
+     \encode{\elemtype}~
+     \encode{\limits} \\
+   \encodex{\limits}{\memtype} &=&
+     \encode{\limits} \\
    ~ \\
-   \encodex{\mut~t}{\globaltype} &=& \encodex{t}{\valtype}~\encode{\mut} \\
+   \encodex{\{\MIN~n, \MAX~\epsilon\}}{\limits} &=&
+     \hex{00}~
+     \encodex{n}{\href{#numbers}{\u32}} \\
+   \encodex{\{\MIN~n, \MAX~m\}}{\limits} &=&
+     \hex{01}~
+     \encodex{n}{\href{#numbers}{\u32}}~
+     \encodex{m}{\href{#numbers}{\u32}} \\
    ~ \\
-   \encodex{\epsilon}{\mut} &=& \hex{00} \\
-   \encodex{\MUT}{\mut} &=& \hex{01} \\
+   \encodex{\mut~t}{\globaltype} &=&
+     \encodex{t}{\valtype}~
+     \encode{\mut} \\
+   ~ \\
+   \encodex{\epsilon}{\mut} &=&
+     \hex{00} \\
+   \encodex{\MUT}{\mut} &=&
+     \hex{01} \\
    \end{array}
 
 

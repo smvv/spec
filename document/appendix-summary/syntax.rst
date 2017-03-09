@@ -38,14 +38,22 @@ Types
 
 .. math::
    \begin{array}{llll}
-   \production{(value types)} & \valtype &::=& \I32 ~|~ \I64 ~|~ \F32 ~|~ \F64 \\
-   \production{(result types)} & \resulttype &::=& \valtype^? \\
-   \production{(function types)} & \functype &::=& \valtype^\ast \to \resulttype \\
+   \production{(value types)} & \valtype &::=&
+     \I32 ~|~ \I64 ~|~ \F32 ~|~ \F64 \\
+   \production{(result types)} & \resulttype &::=&
+     \valtype^? \\
+   \production{(function types)} & \functype &::=&
+     \valtype^\ast \to \resulttype \\
    ~ \\
-   \production{(table types)} & \tabletype &::=& \limits~\elemtype \\
-   \production{(memory types)} & \memtype &::=& \limits \\
-   \production{(element types)} & \elemtype &::=& \ANYFUNC \\
-   \production{(limits)} & \limits &::=& \href{#numbers}{\u32}~\href{#numbers}{\u32}^? \\
+   \production{(memory types)} & \memtype &::=&
+     \limits \\
+   \production{(table types)} & \tabletype &::=&
+     \limits~\elemtype \\
+   \production{(element types)} & \elemtype &::=&
+     \ANYFUNC \\
+   \production{(limits)} & \limits &::=&
+      \{ \MIN~\href{#numbers}{\u32},
+         \MAX~\href{#numbers}{\u32}^? \} \\
    ~ \\
    \production{(global types)} & \globaltype &::=& \mut~\valtype \\
    \production{(mutability)} & \mut &::=& \MUT^? \\
@@ -83,10 +91,10 @@ Modules
 .. math::
    \begin{array}{lllll}
    \production{(modules)} & \module &::=& \{ &
-     \TYPES~\vec(\href{#types}{\func}), \\&&&&
-     \FUNCS~\vec(\href{#indices}{\typeidx}), \\&&&&
-     \TABLES~\vec(\href{#types}{\tabletype}), \\&&&&
-     \MEMORIES~\vec(\href{#types}{\memtype}), \\&&&&
+     \TYPES~\vec(\href{#types}{\functype}), \\&&&&
+     \FUNCS~\vec(\func), \\&&&&
+     \TABLES~\vec(\table), \\&&&&
+     \MEMS~\vec(\mem), \\&&&&
      \GLOBALS~\vec(\global), \\&&&&
      \IMPORTS~\vec(\import), \\&&&&
      \EXPORTS~\vec(\export), \\&&&&
@@ -139,7 +147,11 @@ Modules
 .. math::
    \begin{array}{llll}
    \production{(functions)} & \func &::=&
-     \{ \TYPE~\functype, \LOCALS~\vec(\href{#types}{\valtype}), \BODY~\expr \} \\
+     \{ \TYPE~\typeidx, \LOCALS~\vec(\href{#types}{\valtype}), \BODY~\expr \} \\
+   \production{(tables)} & \table &::=&
+     \{ \TYPE~\tabletype \} \\
+   \production{(memories)} & \mem &::=&
+     \{ \TYPE~\memtype \} \\
    \production{(globals)} & \global &::=&
      \{ \TYPE~\href{#types}{\globaltype}, \INIT~\href{#expressions}{\expr} \} \\
    \production{(expressions)} & \expr &::=&

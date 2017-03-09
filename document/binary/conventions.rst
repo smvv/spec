@@ -1,7 +1,5 @@
-.. _sec-binary:
-
-Binary Format
--------------
+Conventions
+-----------
 
 .. index:: !binary format
 
@@ -43,22 +41,27 @@ The following notation is adopted in defining binary encoding functions.
 
 * :math:`\byte(n)` denotes the byte value of the natural number :math:`n` (for :math:`0 \leq n < 256`).
 
-* :math:`\encode{x}{t}` denotes the set of encodings of :math:`x` of syntactic class :math:`t`.
+* :math:`\encoding \encodex{x}{t}` denotes the set of encodings of :math:`x` of syntactic class :math:`t`.
 
   .. note::
-     For example, :math:`\encode{10}{\uint8}` denotes the set of encodings of the |uint8| value :math:`10`, which is :math:`\{\hex{0A},` :math:`\hex{8A}~\hex{00}\}`.
+     For example, :math:`\encoding \encodex{10}{\u8}` denotes the set of encodings of the |u8| value :math:`10`, which is :math:`\{\hex{0A},` :math:`\hex{8A}~\hex{00}\}`.
 
 * The concatenation :math:`A~B` denotes the set of all encodings that are concatenations of an element from encoding :math:`A` with an element from encoding :math:`B`.
 
   .. note::
-     For example, the concatenation :math:`\encode{10}{\uint8}~\encode{13}{\uint8}` yields the set :math:`\{\hex{0A}~\hex{0D},` :math:`\hex{0A}~\hex{8D}~\hex{00},` :math:`\hex{8A}~\hex{00}~\hex{0D},` :math:`\hex{8A}~\hex{00}~\hex{8D}~\hex{00}\}` of possible encodings.
+     For example, the concatenation :math:`\encoding \encodex{10}{\u8}~\encodex{13}{\u8}` yields the set :math:`\{\hex{0A}~\hex{0D},` :math:`\hex{0A}~\hex{8D}~\hex{00},` :math:`\hex{8A}~\hex{00}~\hex{0D},` :math:`\hex{8A}~\hex{00}~\hex{8D}~\hex{00}\}` of possible encodings.
 
 * The definition of encoding functions is given in clause form:
 
   .. math::
+     \encoding
      \begin{array}{lll@{\qquad}l}
-     \encode{x}{t} &=& \X{byte~sequence~encoding~x} & (\mbox{side condition}) \\
-     \encode{y}{t} &=& \X{byte~sequence~encoding~y} & (\mbox{side condition}) \\
+     \encodex{x}{t} &=&
+       \X{byte~sequence~encoding~x}
+       & (\mbox{side condition}) \\
+     \encodex{y}{t} &=&
+       \X{byte~sequence~encoding~y}
+       & (\mbox{side condition}) \\
      \end{array}
 
   The encoding for a single syntactic class :math:`t` may be defined by multiple clauses covering different cases.
@@ -70,9 +73,14 @@ The following notation is adopted in defining binary encoding functions.
      For example, the encoding of |uint8| values in length-bound `LEB128 <https://en.wikipedia.org/wiki/LEB128>`_ format could be given as follows:
 
      .. math::
+        \encoding
         \begin{array}{lll@{\qquad}l}
-        \encode{n}{\uint8} &=& \byte(n) & (n < 128) \\
-        \encode{m \cdot 128 + n}{\uint8} &=& \byte(n+128)~\byte(m) \\
+        \encodex{n}{\u8} &=&
+          \byte(n)
+          & (n < 128) \\
+        \encodex{m \cdot 128 + n}{\u8} &=&
+          \byte(n+128)~
+          \byte(m) \\
         \end{array}
 
      For values smaller than :math:`128`, both clauses apply, resulting in a set of two possible encodings as sampled in the previous note.

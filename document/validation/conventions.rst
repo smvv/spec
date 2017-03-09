@@ -1,5 +1,5 @@
-Validation
-----------
+Conventions
+-----------
 
 .. index:: !validation
 
@@ -36,14 +36,14 @@ Formally, a context can be defined as a record of the aforementioned components,
 .. math::
    \begin{array}{llll}
    \mbox{(context)} & C &::=&
-     \begin{array}[t]{l@{~}lll}
-     \{ & \TYPES &=& \href{../basics/types.html#function-types}{\functype}^\ast, \\
-        & \FUNCS &=& \href{../basics/types.html#function-types}{\functype}^\ast, \\
-        & \TABLE &=& \href{../basics/types.html#table-types}{\tabletype}^?, \\
-        & \MEMORY &=& \href{../basics/types.html#memory-types}{\memtype}^?, \\
-        & \GLOBALS &=& \href{../basics/types.html#global-types}{\globaltype}^\ast, \\
-        & \LOCALS &=& \href{../basics/types.html#value-types}{\valtype}^\ast, \\
-        & \LABELS &=& \href{../basics/types.html#result-types}{\resulttype}^\ast ~\} \\
+     \begin{array}[t]{l@{~}ll}
+     \{ & \TYPES & \href{../basics/types.html#function-types}{\functype}^\ast, \\
+        & \FUNCS & \href{../basics/types.html#function-types}{\functype}^\ast, \\
+        & \TABLES & \href{../basics/types.html#table-types}{\tabletype}^\ast, \\
+        & \MEMS & \href{../basics/types.html#memory-types}{\memtype}^\ast, \\
+        & \GLOBALS & \href{../basics/types.html#global-types}{\globaltype}^\ast, \\
+        & \LOCALS & \href{../basics/types.html#value-types}{\valtype}^\ast, \\
+        & \LABELS & \href{../basics/types.html#result-types}{\resulttype}^\ast ~\} \\
      \end{array}
    \end{array}
 
@@ -98,11 +98,11 @@ A judgement holds when there is a deduction rule with a matching conclusion for 
 
    .. math::
       \frac{
-        C \vdash \X{expr}_1 : \K{Num}
+        C \vdash \X{expr}_1 : \K{num}
         \quad
-        C \vdash \X{expr}_2 : \K{Num}
+        C \vdash \X{expr}_2 : \K{num}
       }{
-        C \vdash \X{expr}_1 + \X{expr}_2 : \K{Num}
+        C \vdash \X{expr}_1 + \X{expr}_2 : \K{num}
       }
       \quad
       \frac{
@@ -110,12 +110,12 @@ A judgement holds when there is a deduction rule with a matching conclusion for 
         \quad
         C \vdash \X{expr}_2 : t
       }{
-        C \vdash \X{expr}_1 = \X{expr}_2 : \K{Bool}
+        C \vdash \X{expr}_1 = \X{expr}_2 : \K{bool}
       }
 
    .. math::
       \frac{
-        C \vdash \X{expr}_1 : \K{Bool}
+        C \vdash \X{expr}_1 : \K{bool}
         \qquad
         C \vdash \X{expr}_2 : t
         \qquad
@@ -134,8 +134,8 @@ A judgement holds when there is a deduction rule with a matching conclusion for 
    In the rule for the conditional, the first operand must be a Boolean, the others again can have any type but must be consistent.
 
    For example, the type of the expression ":math:`\K{if}~\F{x}~\F{y}~(\F{y} + 1)`" can be derived by recursively applying the typing rules.
-   Under a context where :math:`C(\F{x}) = \K{Bool}` and :math:`C(\F{y}) = \K{Num}` they will deduce this expression to have type :math:`\K{Num}`.
-   Under a context where, for example, :math:`C(\F{x}) = \K{Num}`, no such derivation exists, and the expression would be ill-typed.
+   Under a context where :math:`C(\F{x}) = \K{bool}` and :math:`C(\F{y}) = \K{num}` they will deduce this expression to have type :math:`\K{Num}`.
+   Under a context where, for example, :math:`C(\F{x}) = \K{num}`, no such derivation exists, and the expression would be ill-typed.
    Similarly, if :math:`C(\F{x})` is not defined, that is, :math:`x` is unbound.
 
 
