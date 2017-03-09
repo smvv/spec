@@ -11,7 +11,13 @@ The following auxiliary syntactic classes are assumed:
    \begin{array}{llll}
    \production{(unsigned integers)} & \uint_N &::=& 0 ~|~ 1 ~|~ \dots ~|~ 2^N{-}1 \\
    \production{(signed integers)} & \sint_N &::=& -2^{N-1} ~|~ \dots ~|~ {-}1 ~|~ 0 ~|~ 1 ~|~ \dots ~|~ 2^{N-1}{-}1 \\
+   \production{(uninterpreted integers)} & \int_N &::=& \uint_N ~|~ \sint_N \\
    \end{array}
+
+The latter class defines *uninterpreted* integers, whose signedness interpretation can vary depending on context.
+A 2's complement interpretation is assumed for out-of-range values.
+That is, semantically, when interpreted as unsigned, negative values :math:`-n` convert to :math:`2^N-n`,
+and when interpreted as signed, positive values :math:`n \geq 2^{N-1}` convert to :math:`n-2^N`.
 
 
 Conventions
@@ -53,6 +59,14 @@ As an additional constraint, the total number of bytes encoding a value of type 
    In the case of a non-negative value less than 64, both the first and second rule apply, allowing for optional padding bytes.
    In the case of a negative value greater than or equal to -64, both the second and third rule apply, allowing for optional padding bytes.
 
+Uninterpreted integers are encoded as signed, assuming a 2's complement interpretation.
+
+.. math::
+   \begin{array}{lll@{\qquad\qquad}l}
+   \encode{n}{\int_N} &=& \encode{n}{\sint_N} & (-2^{N-1} \leq n < 2^{N-1}) \\
+   \encode{n}{\int_N} &=& \encode{n-2^N}{\sint_N} & (n \geq 2^{N-1}) \\
+   \end{array}
+
 
 Floating-point Numbers
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -84,20 +98,30 @@ Floating point values are encoded directly by their IEEE bit pattern in `little 
    \end{array}
 
 
-Vectors
-~~~~~~~
+Sequences and Vectors
+~~~~~~~~~~~~~~~~~~~~~
 
-*Vectors* are unterminated sequences of the form :math:`x^n` (or :math:`x^\ast` or :math:`x^?`),
+*Sequences* are iterated elements of the form :math:`x^n` (or :math:`x^\ast` or :math:`x^?`),
 where the :math:`x`-s can either be values or complex phrases.
+
+*Vectors* are bracketed sequences:
+
+.. math::
+   \begin{array}{llll}
+   \production{(vectors)} & \vec(x) &::=& [x^\ast] \\
+   \end{array}
+
 
 Binary Encoding
 ...............
 
-Vectors are encoded with their length followed by the sequence of their element encodings.
+Sequences are simply encoded pointwise.
+Vectors are encoded with their length followed by the encoding of their element sequence.
 
 .. math::
    \begin{array}{lll@{\qquad\qquad}l}
-   \encode{x^n}{t^\ast} &=& \encode{n}{\uint32}~(\encode{x}{t})^n \\
+   \encode{x^\ast}{} &=& (\encode{x}{})^\ast \\
+   \encode{[x^n]}{\vec(\_)} &=& \encode{n}{\uint32}~\encode{x^n}{} \\
    \end{array}
 
 

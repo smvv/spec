@@ -6,11 +6,20 @@ Numbers
 
 .. math::
    \begin{array}{llll}
-   \mbox{(bytes)} & b &::=& \hex{00} ~|~ \dots ~|~ \hex{FF} \\
-   \mbox{(unsigned integers)} & \uint_N &::=& 0 ~|~ 1 ~|~ \dots ~|~ 2^N{-}1 \\
-   \mbox{(signed integers)} & \sint_N &::=& -2^{N-1} ~|~ \dots ~|~ {-}1 ~|~ 0 ~|~ 1 ~|~ \dots ~|~ 2^{N-1}{-}1 \\
-   \mbox{(floating-point numbers)} & \float_N &::=& b^{N/8} \\
-   \mbox{(constants)} & c &::=& \sint32 ~|~ \sint64 ~|~ \float32 ~|~ \float64 \\
+   \production{(bytes)} & b &::=& \hex{00} ~|~ \dots ~|~ \hex{FF} \\
+   \production{(unsigned integers)} & \uX{N} &::=& 0 ~|~ 1 ~|~ \dots ~|~ 2^N{-}1 \\
+   \production{(signed integers)} & \sX{N} &::=& -2^{N-1} ~|~ \dots ~|~ {-}1 ~|~ 0 ~|~ 1 ~|~ \dots ~|~ 2^{N-1}{-}1 \\
+   \production{(uninterpreted integers)} & \iX{N} &::=& \uX{N} ~|~ \sX{N} \\
+   \production{(floating-point numbers)} & \fX{N} &::=& b^{N/8} \\
+   \end{array}
+
+
+Vectors
+~~~~~~~
+
+.. math::
+   \begin{array}{llll}
+   \production{(vectors)} & \vec(x) &::=& [x^\ast] \\
    \end{array}
 
 
@@ -19,8 +28,8 @@ Strings
 
 .. math::
    \begin{array}{llll}
-   \mbox{(strings)} & \string &::=& b^\ast \\
-   \mbox{(names)} & \name &::=& \href{#strings}{\string} \\
+   \production{(strings)} & \string &::=& \vec(b) \\
+   \production{(names)} & \name &::=& \href{#strings}{\string} \\
    \end{array}
 
 
@@ -29,19 +38,19 @@ Types
 
 .. math::
    \begin{array}{llll}
-   \mbox{(value types)} & \valtype &::=& \I32 ~|~ \I64 ~|~ \F32 ~|~ \F64 \\
-   \mbox{(result types)} & \resulttype &::=& \valtype^? \\
-   \mbox{(function types)} & \functype &::=& \valtype^\ast \to \resulttype \\
+   \production{(value types)} & \valtype &::=& \I32 ~|~ \I64 ~|~ \F32 ~|~ \F64 \\
+   \production{(result types)} & \resulttype &::=& \valtype^? \\
+   \production{(function types)} & \functype &::=& \valtype^\ast \to \resulttype \\
    ~ \\
-   \mbox{(table types)} & \tabletype &::=& \elemtype[\limits] \\
-   \mbox{(memory types)} & \memtype &::=& \PAGE[\limits] \\
-   \mbox{(element types)} & \elemtype &::=& \ANYFUNC \\
-   \mbox{(limits)} & \limits &::=& \href{#numbers}{\uint32}~\href{#numbers}{\uint32}^? \\
+   \production{(table types)} & \tabletype &::=& \limits~\elemtype \\
+   \production{(memory types)} & \memtype &::=& \limits \\
+   \production{(element types)} & \elemtype &::=& \ANYFUNC \\
+   \production{(limits)} & \limits &::=& \href{#numbers}{\u32}~\href{#numbers}{\u32}^? \\
    ~ \\
-   \mbox{(global types)} & \globaltype &::=& \mut~\valtype \\
-   \mbox{(mutability)} & \mut &::=& \MUT^? \\
+   \production{(global types)} & \globaltype &::=& \mut~\valtype \\
+   \production{(mutability)} & \mut &::=& \MUT^? \\
    ~ \\
-   \mbox{(external types)} & \externtype &::=&
+   \production{(external types)} & \externtype &::=&
      \FUNC~\functype ~|~ \\&&&
      \TABLE~\tabletype ~|~ \\&&&
      \MEMORY~\memtype ~|~ \\&&&
@@ -54,13 +63,13 @@ Indices
 
 .. math::
    \begin{array}{llll}
-   \mbox{(type indices)} & \typeidx &::=& \href{#numbers}{\uint32} \\
-   \mbox{(function indices)} & \funcidx &::=& \href{#numbers}{\uint32} \\
-   \mbox{(table indices)} & \tableidx &::=& \href{#numbers}{\uint32} \\
-   \mbox{(memory indices)} & \memidx &::=& \href{#numbers}{\uint32} \\
-   \mbox{(global indices)} & \globalidx &::=& \href{#numbers}{\uint32} \\
-   \mbox{(local indices)} & \localidx &::=& \href{#numbers}{\uint32} \\
-   \mbox{(label indices)} & \labelidx &::=& \href{#numbers}{\uint32} \\
+   \production{(type indices)} & \typeidx &::=& \href{#numbers}{\u32} \\
+   \production{(function indices)} & \funcidx &::=& \href{#numbers}{\u32} \\
+   \production{(table indices)} & \tableidx &::=& \href{#numbers}{\u32} \\
+   \production{(memory indices)} & \memidx &::=& \href{#numbers}{\u32} \\
+   \production{(global indices)} & \globalidx &::=& \href{#numbers}{\u32} \\
+   \production{(local indices)} & \localidx &::=& \href{#numbers}{\u32} \\
+   \production{(label indices)} & \labelidx &::=& \href{#numbers}{\u32} \\
    \end{array}
 
 
@@ -72,9 +81,22 @@ Modules
    pair: grammar; sections
 
 .. math::
+   \begin{array}{lllll}
+   \production{(modules)} & \module &::=& \{ &
+     \TYPES~\vec(\href{#types}{\func}), \\&&&&
+     \FUNCS~\vec(\href{#indices}{\typeidx}), \\&&&&
+     \TABLES~\vec(\href{#types}{\tabletype}), \\&&&&
+     \MEMORIES~\vec(\href{#types}{\memtype}), \\&&&&
+     \GLOBALS~\vec(\global), \\&&&&
+     \IMPORTS~\vec(\import), \\&&&&
+     \EXPORTS~\vec(\export), \\&&&&
+     \START~\href{#indices}{\funcidx}, \\&&&&
+     \ELEM~\vec(\elemseg), \\&&&&
+     \DATA~\vec(\dataseg) \quad\} \\
+   \end{array}
+   \void{
    \begin{array}{llll}
-   \mbox{(modules)} & \module &::=&
-     \customsec^\ast~\\&&&
+   \production{(modules)} & \module &::=&
      \typesec^?~\customsec^\ast~\\&&&
      \importsec^?~\customsec^\ast~\\&&&
      \funcsec^?~\customsec^\ast~\\&&&
@@ -87,83 +109,61 @@ Modules
      \codesec^?~\customsec^\ast~\\&&&
      \datasec^?~\customsec^\ast \\
    ~ \\
-   \mbox{(type sections)} & \typesec &::=&
-     \typedef\,^\ast \\
-   \mbox{(type definitions)} & \typedef &::=&
-     \TYPE~\href{#types}{\functype} \\
+   \production{(custom sections)} & \customsec &::=&
+     \CUSTOM~\href{#strings}{\name}~b^\ast \\
+   \production{(type sections)} & \typesec &::=&
+     \TYPE~\href{#types}{\functype}^\ast \\
+   \production{(import sections)} & \importsec &::=&
+     \IMPORT~\import^\ast \\
+   \production{(function sections)} & \funcsec &::=&
+     \FUNC~\href{#indices}{\typeidx}^\ast \\
+   \production{(table sections)} & \tablesec &::=&
+     \TABLE~\href{#types}{\tabletype}^\ast \\
+   \production{(memory sections)} & \memsec &::=&
+     \MEMORY~\href{#types}{\memtype}^\ast \\
+   \production{(global sections)} & \globalsec &::=&
+     \GLOBAL~\global^\ast \\
+   \production{(export sections)} & \exportsec &::=&
+     \EXPORT~\export^\ast \\
+   \production{(start sections)} & \startsec &::=&
+     \START~\href{#indices}{\funcidx} \\
+   \production{(code sections)} & \codesec &::=&
+     \CODE~\code^\ast \\
+   \production{(element sections)} & \elemsec &::=&
+     \ELEM~\elemseg^\ast \\
+   \production{(data sections)} & \datasec &::=&
+     \DATA~\dataseg^\ast \\
+   \end{array}
+   }
+
+.. math::
+   \begin{array}{llll}
+   \production{(functions)} & \func &::=&
+     \{ \TYPE~\functype, \LOCALS~\vec(\href{#types}{\valtype}), \BODY~\expr \} \\
+   \production{(globals)} & \global &::=&
+     \{ \TYPE~\href{#types}{\globaltype}, \INIT~\href{#expressions}{\expr} \} \\
+   \production{(expressions)} & \expr &::=&
+     \href{#instructions}{\instr}^\ast~\END \\
    ~ \\
-   \mbox{(import sections)} & \importsec &::=&
-     \import^\ast \\
-   \mbox{(imports)} & \import &::=&
-     \IMPORT~\href{#strings}{\string}~\href{#strings}{\name}~\importdesc \\
-   \mbox{(import descriptions)} & \importdesc &::=&
+   \production{(data segments)} & \dataseg &::=&
+     \{ \OFFSET~\href{#expressions}{\expr}, \INIT~\vec(\href{#numbers}{b}) \} \\
+   \production{(element segments)} & \elemseg &::=&
+     \{ \OFFSET~\href{#expressions}{\expr}, \INIT~\vec(\href{#indices}{\funcidx}) \} \\
+   ~ \\
+   \production{(imports)} & \import &::=&
+     \{ \MODULE~\href{#strings}{\name}, \NAME~\href{#strings}{\name}, \DESC~\importdesc \} \\
+   \production{(import descriptions)} & \importdesc &::=&
      \FUNC~\href{#indices}{\typeidx} ~|~ \\&&&
      \TABLE~\href{#types}{\tabletype} ~|~ \\&&&
      \MEMORY~\href{#types}{\memtype} ~|~ \\&&&
      \GLOBAL~\href{#types}{\globaltype} \\
    ~ \\
-   \mbox{(export sections)} & \exportsec &::=&
-     \export^\ast \\
-   \mbox{(exports)} & \export &::=&
-     \EXPORT~\href{#strings}{\name}~\exportdesc \\
-   \mbox{(export descriptions)} & \exportdesc &::=&
+   \production{(exports)} & \export &::=&
+     \{ \NAME~\href{#strings}{\name}, \DESC~\exportdesc \} \\
+   \production{(export descriptions)} & \exportdesc &::=&
      \FUNC~\href{#indices}{\funcidx} ~|~ \\&&&
      \TABLE~\href{#indices}{\tableidx} ~|~ \\&&& \MEMORY~\href{#indices}{\memidx} ~|~ \\&&&
      \GLOBAL~\href{#indices}{\globalidx} \\
-   ~ \\
-   \mbox{(function sections)} & \funcsec &::=&
-     \funcdef\,^\ast \\
-   \mbox{(function definitions)} & \funcdef &::=&
-     \FUNC~\href{#indices}{\typeidx} \\
-   ~ \\
-   \mbox{(table sections)} & \tablesec &::=&
-     \tabledef\,^\ast \\
-   \mbox{(table definitions)} & \tabledef &::=&
-     \TABLE~\href{#types}{\tabletype} \\
-   ~ \\
-   \mbox{(memory sections)} & \memsec &::=&
-     \memdef\,^\ast \\
-   \mbox{(memory definitions)} & \memdef &::=&
-     \MEMORY~\href{#types}{\memtype} \\
-   ~ \\
-   \mbox{(global sections)} & \globalsec &::=&
-     \globaldef\,^\ast \\
-   \mbox{(global definitions)} & \globaldef &::=&
-     \GLOBAL~\href{#types}{\globaltype}~\href{#expressions}{\expr} \\
-   ~ \\
-   \mbox{(code sections)} & \codesec &::=&
-     \code^\ast \\
-   \mbox{(code)} & \code &::=&
-     \href{#types}{\valtype}^\ast~\href{#instructions}{\instr} \\
-   ~ \\
-   \mbox{(data sections)} & \datasec &::=&
-     \dataseg^\ast \\
-   \mbox{(data segments)} & \dataseg &::=&
-     \DATA~\href{#expressions}{\expr}~\href{#numbers}{b}^\ast \\
-   ~ \\
-   \mbox{(element sections)} & \elemsec &::=&
-     \elemseg^\ast \\
-   \mbox{(element segments)} & \elemseg &::=&
-     \ELEM~\href{#expressions}{\expr}~\href{#indices}{\funcidx}^\ast \\
-   ~ \\
-   \mbox{(start sections)} & \startsec &::=&
-     \START~\href{#indices}{\funcidx} \\
-   ~ \\
-   \mbox{(custom sections)} & \customsec &::=&
-     \CUSTOM~\href{#strings}{\name}~b^\ast \\
-   \end{array}
-
-
-Expressions
-~~~~~~~~~~~
-
-.. index::
-   pair: grammar; expressions
-
-.. math::
-   \begin{array}{llll}
-   \mbox{(expressions)} & \expr &::=&
-     \href{#instructions}{\instr}^\ast~\END \\
    \end{array}
 
 
@@ -175,21 +175,17 @@ Instructions
 
 .. math::
    \begin{array}{llll}
-   \mbox{(width)} & \X{nn}, \X{mm} &::=&
+   \production{(width)} & \X{nn}, \X{mm} &::=&
      \K{32} ~|~ \K{64} \\
-   \mbox{(signedness)} & \sx &::=&
+   \production{(signedness)} & \sx &::=&
      \K{u} ~|~ \K{s} \\
-   \mbox{(alignment)} & \align &::=&
-     \href{#numbers}{\uint32} \\
-   \mbox{(offset)} & \offset &::=&
-     \href{#numbers}{\uint32} \\
-   \mbox{(memory operators)} & \memop &::=&
-     \align~\offset \\
+   \production{(memory operators)} & \memop &::=&
+     \{ \ALIGN~\u32, \OFFSET~\u32 \} \\
    \end{array}
 
 .. math::
    \begin{array}{llll}
-   \mbox{(instructions)} & \instr &::=&
+   \production{(instructions)} & \instr &::=&
      \K{unreachable} ~|~ \\&&&
      \K{nop} ~|~ \\&&&
      \K{block}~\href{#types}{\resulttype}~\instr^\ast~\END ~|~ \\&&&
@@ -197,7 +193,7 @@ Instructions
      \K{if}~\href{#types}{\resulttype}~\instr^\ast~\K{else}~\instr^\ast~\END ~|~ \\&&&
      \K{br}~\href{#indices}{\labelidx} ~|~ \\&&&
      \K{br\_if}~\href{#indices}{\labelidx} ~|~ \\&&&
-     \K{br\_table}~\href{#indices}{\labelidx}^+ ~|~ \\&&&
+     \K{br\_table}~\vec(\href{#indices}{\labelidx})~\href{#indices}{\labelidx} ~|~ \\&&&
      \K{return} ~|~ \\&&&
      \K{call}~\href{#indices}{\funcidx} ~|~ \\&&&
      \K{call\_indirect}~\href{#indices}{\typeidx} ~|~ \\&&&
@@ -218,8 +214,8 @@ Instructions
      \K{i}\X{nn}\K{.store8}~\memop ~|~ \\&&&
      \K{i}\X{nn}\K{.store16}~\memop ~|~ \\&&&
      \K{i64.store32}~\memop ~|~ \\&&&
-     \K{i}\X{nn}\K{.const}~\sint_{\X{nn}} ~|~
-     \K{f}\X{nn}\K{.const}~\float_{\X{nn}} ~|~ \\&&&
+     \K{i}\X{nn}\K{.const}~\iX{\X{nn}} ~|~
+     \K{f}\X{nn}\K{.const}~\fX{\X{nn}} ~|~ \\&&&
      \K{i}\X{nn}\K{.eqz} ~|~ \\&&&
      \K{i}\X{nn}\K{.eq} ~|~
      \K{i}\X{nn}\K{.ne} ~|~

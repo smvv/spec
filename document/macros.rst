@@ -7,25 +7,34 @@
 .. |rsem| mathmacro:: {]\!]}
 .. |sem| mathmacro:: \def\sem#1{[\![#1]\!]}\sem
 
+.. |void| mathmacro:: \def\void#1{}\void
 .. |production| mathmacro:: \def\void#1{}\void
 
 .. |hex| mathmacro:: \def\hex#1{\mathrm{0x#1}}\hex
 .. |byte| mathmacro:: \mathrm{byte}
 .. |bytes| mathmacro:: \mathrm{bytes}
-.. |encode| mathmacro:: \def\encodeinternal#1#2{{[\![#2]\!]}(#1)}\encodeinternal
+.. |encode| mathmacro:: \enc
+.. |encodex| mathmacro:: \encx
+.. |encoding| mathmacro:: \def\enc#1{{[\![#1]\!]}} \def\encx#1#2{{[\![#1]\!]}_{#2}}
 
-.. |uint| mathmacro:: {\mathit{uint}}
-.. |uint1| mathmacro:: {\mathit{uint}_{1}}
-.. |uint8| mathmacro:: {\mathit{uint}_{8}}
-.. |uint16| mathmacro:: {\mathit{uint}_{16}}
-.. |uint32| mathmacro:: {\mathit{uint}_{32}}
-.. |uint64| mathmacro:: {\mathit{uint}_{64}}
-.. |sint| mathmacro:: {\mathit{sint}}
-.. |sint32| mathmacro:: {\mathit{sint}_{32}}
-.. |sint64| mathmacro:: {\mathit{sint}_{64}}
-.. |float| mathmacro:: {\mathit{float}}
-.. |float32| mathmacro:: {\mathit{float}_{32}}
-.. |float64| mathmacro:: {\mathit{float}_{64}}
+.. |uX| mathmacro:: \def\uX#1{\mathit{uint}_{#1}}\uX
+.. |sX| mathmacro:: \def\sX#1{\mathit{sint}_{#1}}\sX
+.. |iX| mathmacro:: \def\iX#1{\mathit{int}_{#1}}\iX
+.. |fX| mathmacro:: \def\fX#1{\mathit{float}_{#1}}\fX
+.. |u1| mathmacro:: {\mathit{uint}_{1}}
+.. |u8| mathmacro:: {\mathit{uint}_{8}}
+.. |u16| mathmacro:: {\mathit{uint}_{16}}
+.. |u32| mathmacro:: {\mathit{uint}_{32}}
+.. |u64| mathmacro:: {\mathit{uint}_{64}}
+.. |s32| mathmacro:: {\mathit{sint}_{32}}
+.. |s64| mathmacro:: {\mathit{sint}_{64}}
+.. |i32| mathmacro:: {\mathit{int}_{32}}
+.. |i64| mathmacro:: {\mathit{int}_{64}}
+.. |f32| mathmacro:: {\mathit{float}_{32}}
+.. |f64| mathmacro:: {\mathit{float}_{64}}
+
+.. |vec| mathmacro:: \mathit{vec}
+.. |sec| mathmacro:: \mathit{sec}
 .. |string| mathmacro:: {\mathit{string}}
 .. |name| mathmacro:: {\mathit{name}}
 
@@ -64,12 +73,15 @@
 .. |importdesc| mathmacro:: \mathit{importdesc}
 .. |funcsec| mathmacro:: \mathit{funcsec}
 .. |funcdef| mathmacro:: \mathit{funcdef}
+.. |func| mathmacro:: \mathit{func}
 .. |tablesec| mathmacro:: \mathit{tablesec}
 .. |tabledef| mathmacro:: \mathit{tabledef}
 .. |memsec| mathmacro:: \mathit{memsec}
 .. |memdef| mathmacro:: \mathit{memdef}
 .. |globalsec| mathmacro:: \mathit{globalsec}
 .. |globaldef| mathmacro:: \mathit{globaldef}
+.. |global| mathmacro:: \mathit{global}
+.. |locals| mathmacro:: \mathit{locals}
 .. |exportsec| mathmacro:: \mathit{exportsec}
 .. |export| mathmacro:: \mathit{export}
 .. |exportdesc| mathmacro:: \mathit{exportdesc}
@@ -90,6 +102,7 @@
 .. |localidx| mathmacro:: \mathit{localidx}
 .. |labelidx| mathmacro:: \mathit{labelidx}
 
+.. |MODULE| mathmacro:: \mathsf{module}
 .. |TYPE| mathmacro:: \mathsf{type}
 .. |FUNC| mathmacro:: \mathsf{func}
 .. |TABLE| mathmacro:: \mathsf{table}
@@ -106,6 +119,14 @@
 .. |END| mathmacro:: \mathsf{end}
 .. |CUSTOM| mathmacro:: \mathsf{custom}
 
+.. |VALUE| mathmacro:: \mathsf{value}
+.. |INIT| mathmacro:: \mathsf{init}
+.. |BODY| mathmacro:: \mathsf{body}
+.. |NAME| mathmacro:: \mathsf{name}
+.. |DESC| mathmacro:: \mathsf{desc}
+.. |OFFSET| mathmacro:: \mathsf{offset}
+.. |ALIGN| mathmacro:: \mathsf{align}
+
 .. |TYPES| mathmacro:: \mathsf{types}
 .. |FUNCS| mathmacro:: \mathsf{funcs}
 .. |TABLES| mathmacro:: \mathsf{tables}
@@ -113,3 +134,5 @@
 .. |GLOBALS| mathmacro:: \mathsf{globals}
 .. |LOCALS| mathmacro:: \mathsf{locals}
 .. |LABELS| mathmacro:: \mathsf{labels}
+.. |IMPORTS| mathmacro:: \mathsf{imports}
+.. |EXPORTS| mathmacro:: \mathsf{exports}
