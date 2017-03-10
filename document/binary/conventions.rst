@@ -27,7 +27,7 @@ The defined encoding functions are all invertible in the sense that every possib
 Consequently, *decoding* is defined implicitly as the respective inverse function.
 
 Where multiple encodings are possible, a decoder must accept all of them.
-Conversely, a decoder must reject all inputs that are not a possible encoding for any phrase. 
+Conversely, a decoder must reject all inputs that are not a possible encoding for any phrase.
 
 
 Notation
@@ -70,7 +70,7 @@ The following notation is adopted in defining binary encoding functions.
   The result of the encoding function then is the union of all applicable clauses.
 
   .. note::
-     For example, the encoding of |uint8| values in length-bound `LEB128 <https://en.wikipedia.org/wiki/LEB128>`_ format could be given as follows:
+     For example, the encoding of |u8| values in length-bound `LEB128 <https://en.wikipedia.org/wiki/LEB128>`_ format could be given as follows:
 
      .. math::
         \encoding

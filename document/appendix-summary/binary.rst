@@ -125,7 +125,7 @@ Modules
      \encode{\customsec_4}^\ast~\\&&
      \encodex{m.\TABLES}{\tablesec}~
      \encode{\customsec_5}^\ast~\\&&
-     \encodex{m.\MEMORIES}{\memsec}~
+     \encodex{m.\MEMS}{\memsec}~
      \encode{\customsec_6}^\ast~\\&&
      \encodex{m.\GLOBALS}{\globalsec}~
      \encode{\customsec_7}^\ast~\\&&

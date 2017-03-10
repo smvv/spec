@@ -15,7 +15,6 @@ WebAssembly Specification
    execution/index
    instructions/index
    binary/index
-   appendix-summary/index
    appendix-properties/index
    appendix-algorithm/index
    appendix-textual/index

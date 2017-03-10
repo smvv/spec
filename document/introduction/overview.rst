@@ -1,6 +1,8 @@
 Overview
 --------
 
+.. index:: concepts, value, instruction, trap, function, table, memory, linear memory, module, !embedder
+
 Concepts
 ~~~~~~~~
 
@@ -79,6 +81,8 @@ This language is structured around the following main concepts.
 
 .. [#arity] In the current version of WebAssembly, there may be at most one result value.
 
+
+.. index:: phases, decoding, validation, execution, instantiation, invocation
 
 Semantic Phases
 ~~~~~~~~~~~~~~~

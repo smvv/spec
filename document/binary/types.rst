@@ -14,7 +14,7 @@ Value Types
    \end{array}
 
 .. note::
-   These bytes correspond to the encodings of small negative |sX{}| values.
+   These bytes correspond to the encodings of small negative :math:`sX{}` values.
    This scheme is so that types can coexist in a single space with (positive) indices into the type section, which may be relevant for future extensions
    Gaps in this scheme are also reserved for future extensions.
 

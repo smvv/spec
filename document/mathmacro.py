@@ -6,8 +6,8 @@ redefined the math directive and the math role. For example, like this
 
   extensions = [
       'sphinx.ext.autodoc', 'sphinx.ext.doctest',
-      'sphinx.ext.mathjax', 
-      'sphinx.ext.viewcode', 'sphinx.ext.autosummary', 
+      'sphinx.ext.mathjax',
+      'sphinx.ext.viewcode', 'sphinx.ext.autosummary',
       'numpydoc',
       'mathmacro']
 
@@ -82,7 +82,7 @@ class NewMathDirective(MathDirective):
         return super(NewMathDirective, self).run()
 
 
-def new_math_role(role, rawtext, text, lineno, inliner, 
+def new_math_role(role, rawtext, text, lineno, inliner,
                   options={}, content=[]):
     """New math role parsing the latex code."""
     try:

@@ -142,7 +142,8 @@ html_theme_options = {
   'sidebar_collapse': True,
   'show_powered_by': False,
   'extra_nav_links': {
-    'Download as PDF': 'DOWNLOADDIR/' + name + '.pdf'
+    'Index': 'BASEDIR/genindex.html',
+    'Download as PDF': 'BASEDIR/_download/' + name + '.pdf'
   },
 }
 

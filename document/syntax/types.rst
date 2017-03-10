@@ -1,7 +1,15 @@
+.. _syntax-type:
+.. index:: ! type
+   pair: abstract syntax; type
+
 Types
 -----
 
+
 .. _syntax-valtype:
+.. index:: ! value type
+   pair: abstract syntax; value type
+   pair: value; type
 
 Value Types
 ~~~~~~~~~~~
@@ -27,6 +35,9 @@ Conventions
 
 
 .. _syntax-resulttype:
+.. index:: ! result type
+   pair: abstract syntax; result type
+   pair: result; type
 
 Result Types
 ~~~~~~~~~~~~
@@ -46,6 +57,9 @@ which is a sequence of values.
 
 
 .. _syntax-functype:
+.. index:: ! function type
+   pair: abstract syntax; function type
+   pair: function; type
 
 Function Types
 ~~~~~~~~~~~~~~
@@ -62,6 +76,11 @@ mapping a sequence of parameters to a sequence of results.
 
 .. _syntax-memtype:
 .. _syntax-limits:
+.. index:: ! memory type; ! limits
+   pair: abstract syntax; memory type
+   pair: abstract syntax; limits
+   pair: memory; type
+   pair: memory; limits
 
 Memory Types
 ~~~~~~~~~~~~
@@ -83,6 +102,12 @@ Both values are given in units of :ref:`page size <page-size>`.
 
 .. _syntax-tabletype:
 .. _syntax-elemtype:
+.. index:: ! table type; ! element type
+   pair: abstract syntax; table type
+   pair: abstract syntax; element type
+   pair: table; type
+   pair: table; limits
+   pair: element; type
 
 Table Types
 ~~~~~~~~~~~
@@ -108,6 +133,11 @@ A table of that type thus contains references to functions of heterogeneous type
 
 
 .. _syntax-globaltype:
+.. index:: ! global type
+   pair: abstract syntax; global type
+   pair: abstract syntax; mutability
+   pair: global; type
+   pair: global; mutability
 
 Global Types
 ~~~~~~~~~~~~
@@ -122,6 +152,9 @@ Global Types
 
 
 .. _syntax-externtype:
+.. index:: ! external type
+   pair: abstract syntax; external type
+   pair: external; type
 
 External Types
 ~~~~~~~~~~~~~~

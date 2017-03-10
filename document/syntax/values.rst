@@ -1,7 +1,14 @@
+.. _syntax-value:
+.. index:: ! value
+   pair: abstract syntax; value
+
 Values
 ------
 
+
 .. _syntax-byte:
+.. index:: ! byte
+   pair: abstract syntax; byte
 
 Bytes
 ~~~~~
@@ -25,6 +32,11 @@ Conventions
 
 
 .. _syntax-int:
+.. index:: ! integer, ! unsigned integer, ! signed integer, ! uninterpreted integer
+   pair: abstract syntax; integer
+   pair: abstract syntax; unsigned integer
+   pair: abstract syntax; signed integer
+   pair: abstract syntax; uninterpreted integer
 
 Integers
 ~~~~~~~~
@@ -56,6 +68,8 @@ Conventions
 
 
 .. _syntax-float:
+.. index:: ! floating-point number
+   pair: abstract syntax; floating-point number
 
 Floating-point Numbers
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +92,8 @@ Conventions
 
 
 .. _syntax-vec:
+.. index:: ! vector
+   pair: abstract syntax; vector
 
 Vectors
 ~~~~~~~
@@ -100,28 +116,20 @@ Conventions
 * :math:`v[i]` denotes the :math:`i`-th element of a vector :math:`v`, starting from :math:`0`.
 
 
-.. _syntax-string:
 .. _syntax-name:
+.. index:: ! name
+   pair: abstract syntax; name
 
-Strings
-~~~~~~~
+Names
+~~~~~
 
-*Strings* are uninterpreted vectors of bytes.
-
-.. math::
-   \begin{array}{llll}
-   \production{strings} & \string &::=&
-     \vec(\by) \\
-   \end{array}
-
-*Names* are strings that act as identifiers.
-Additional well-formedness constraints may apply to them.
+*Names* are vectors of bytes interpreted as character strings.
 
 .. math::
    \begin{array}{llll}
    \production{names} & \name &::=&
-     \string \\
+     \vec(\by) \\
    \end{array}
 
 .. todo::
-   UTF8?
+   Unicode?

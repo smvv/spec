@@ -4,7 +4,7 @@ Structure
 .. toctree::
    :maxdepth: 2
 
-   syntax
+   conventions
    values
    types
    modules

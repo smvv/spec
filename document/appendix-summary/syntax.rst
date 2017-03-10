@@ -61,7 +61,7 @@ Types
    \production{(external types)} & \externtype &::=&
      \FUNC~\functype ~|~ \\&&&
      \TABLE~\tabletype ~|~ \\&&&
-     \MEMORY~\memtype ~|~ \\&&&
+     \MEM~\memtype ~|~ \\&&&
      \GLOBAL~\globaltype \\
    \end{array}
 
@@ -128,7 +128,7 @@ Modules
    \production{(table sections)} & \tablesec &::=&
      \TABLE~\href{#types}{\tabletype}^\ast \\
    \production{(memory sections)} & \memsec &::=&
-     \MEMORY~\href{#types}{\memtype}^\ast \\
+     \MEM~\href{#types}{\memtype}^\ast \\
    \production{(global sections)} & \globalsec &::=&
      \GLOBAL~\global^\ast \\
    \production{(export sections)} & \exportsec &::=&
@@ -167,14 +167,15 @@ Modules
    \production{(import descriptions)} & \importdesc &::=&
      \FUNC~\href{#indices}{\typeidx} ~|~ \\&&&
      \TABLE~\href{#types}{\tabletype} ~|~ \\&&&
-     \MEMORY~\href{#types}{\memtype} ~|~ \\&&&
+     \MEM~\href{#types}{\memtype} ~|~ \\&&&
      \GLOBAL~\href{#types}{\globaltype} \\
    ~ \\
    \production{(exports)} & \export &::=&
      \{ \NAME~\href{#strings}{\name}, \DESC~\exportdesc \} \\
    \production{(export descriptions)} & \exportdesc &::=&
      \FUNC~\href{#indices}{\funcidx} ~|~ \\&&&
-     \TABLE~\href{#indices}{\tableidx} ~|~ \\&&& \MEMORY~\href{#indices}{\memidx} ~|~ \\&&&
+     \TABLE~\href{#indices}{\tableidx} ~|~ \\&&&
+     \MEM~\href{#indices}{\memidx} ~|~ \\&&&
      \GLOBAL~\href{#indices}{\globalidx} \\
    \end{array}
 
@@ -259,9 +260,9 @@ Instructions
      \K{f}\X{nn}\K{.abs} ~|~
      \K{f}\X{nn}\K{.neg} ~|~
      \K{f}\X{nn}\K{.sqrt} ~|~ \\&&&
-     \K{f}\X{nn}\K{.ceil} ~|~ 
-     \K{f}\X{nn}\K{.floor} ~|~ 
-     \K{f}\X{nn}\K{.trunc} ~|~ 
+     \K{f}\X{nn}\K{.ceil} ~|~
+     \K{f}\X{nn}\K{.floor} ~|~
+     \K{f}\X{nn}\K{.trunc} ~|~
      \K{f}\X{nn}\K{.nearest} ~|~ \\&&&
      \K{f}\X{nn}\K{.add} ~|~
      \K{f}\X{nn}\K{.sub} ~|~

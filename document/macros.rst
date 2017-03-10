@@ -66,12 +66,10 @@
 .. |MIN| mathmacro:: \mathsf{min}
 .. |MAX| mathmacro:: \mathsf{max}
 
-.. |sx| mathmacro:: \mathit{sx}
-.. |align| mathmacro:: \mathit{align}
-.. |offset| mathmacro:: \mathit{offset}
-.. |memop| mathmacro:: \mathit{memop}
-.. |instr| mathmacro:: \mathit{instr}
-.. |expr| mathmacro:: \mathit{expr}
+.. |sx| mathmacro:: \href{../syntax/instructions.html#syntax-sx}{\mathit{sx}}
+.. |memop| mathmacro:: \href{../syntax/instructions.html#syntax-memop}{\mathit{memop}}
+.. |instr| mathmacro:: \href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}
+.. |expr| mathmacro:: \href{../syntax/modules.html#syntax-expr}{\mathit{expr}}
 
 .. |module| mathmacro:: \href{../syntax/modules.html#syntax-module}{\mathit{module}}
 .. |type| mathmacro:: \href{../syntax/modules.html#syntax-type}{\mathit{type}}
@@ -103,13 +101,13 @@
 .. |locals| mathmacro:: \mathit{locals}
 .. |code| mathmacro:: \mathit{code}
 
-.. |typeidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{typeidx}}
-.. |funcidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{funcidx}}
-.. |globalidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{globalidx}}
-.. |tableidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{tableidx}}
-.. |memidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{memidx}}
-.. |localidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{localidx}}
-.. |labelidx| mathmacro:: \href{../syntax/modules.html#syntax-idx}{\mathit{labelidx}}
+.. |typeidx| mathmacro:: \href{../syntax/modules.html#syntax-typeidx}{\mathit{typeidx}}
+.. |funcidx| mathmacro:: \href{../syntax/modules.html#syntax-funcidx}{\mathit{funcidx}}
+.. |tableidx| mathmacro:: \href{../syntax/modules.html#syntax-tableidx}{\mathit{tableidx}}
+.. |memidx| mathmacro:: \href{../syntax/modules.html#syntax-memidx}{\mathit{memidx}}
+.. |globalidx| mathmacro:: \href{../syntax/modules.html#syntax-globalidx}{\mathit{globalidx}}
+.. |localidx| mathmacro:: \href{../syntax/modules.html#syntax-localidx}{\mathit{localidx}}
+.. |labelidx| mathmacro:: \href{../syntax/modules.html#syntax-labelidx}{\mathit{labelidx}}
 
 .. |MODULE| mathmacro:: \mathsf{module}
 .. |TYPE| mathmacro:: \mathsf{type}
@@ -128,6 +126,7 @@
 .. |END| mathmacro:: \mathsf{end}
 .. |CUSTOM| mathmacro:: \mathsf{custom}
 
+.. |INDEX| mathmacro:: \mathsf{index}
 .. |VALUE| mathmacro:: \mathsf{value}
 .. |INIT| mathmacro:: \mathsf{init}
 .. |BODY| mathmacro:: \mathsf{body}

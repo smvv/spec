@@ -1,7 +1,8 @@
+.. _syntax:
+.. index:: ! abstract syntax
+
 Abstract Syntax
 ---------------
-
-.. index:: !abstract syntax
 
 WebAssembly is a programming language that does not have a concrete syntax
 (other than the auxiliary :ref:`text format <text-format>`).
@@ -11,6 +12,9 @@ including the decoding of the :ref:`binary format <binary-format>`.
 
 
 .. _grammar:
+.. index:: ! grammar notation
+   pair: abstract syntax; grammar
+   pair: abstract syntax; notation
 
 Grammar
 ~~~~~~~
