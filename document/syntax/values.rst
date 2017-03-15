@@ -103,13 +103,13 @@ Conventions
 Vectors
 ~~~~~~~
 
-*Vectors* are self-contained sequences of the form :math:`A^n` (or :math:`A^\ast`),
+*Vectors* are self-contained sequences of the form :math:`[A^n]` (or :math:`A^\ast`),
 where the :math:`A`-s can either be values or complex constructions.
 
 .. math::
    \begin{array}{llll}
    \production{vectors} & \vec(A) &::=&
-     A^\ast \\
+     [A^\ast] \\
    \end{array}
 
 

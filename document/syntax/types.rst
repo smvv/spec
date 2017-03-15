@@ -33,6 +33,9 @@ Conventions
 
 * The meta variable :math:`t` ranges over value types where clear from context.
 
+* The notation :math:`|t|` denotes the *width* of a value type in bytes.
+  (That is, :math:`|\I32| = |\F32| = 4` and :math:`|\I64| = |\F64| = 8`.)
+
 
 .. _syntax-resulttype:
 .. index:: ! result type, value type
@@ -57,7 +60,7 @@ which is a sequence of values.
 
 
 .. _syntax-functype:
-.. index:: ! function type, valut type, result type
+.. index:: ! function type, value type, result type
    pair: abstract syntax; function type
    pair: function; type
 
@@ -65,13 +68,18 @@ Function Types
 ~~~~~~~~~~~~~~
 
 *Function types* classify the signature of functions,
-mapping a sequence of parameters to a sequence of results.
+mapping a vector of parameters to a vector of results.
 
 .. math::
    \begin{array}{llll}
    \production{function types} & \functype &::=&
-     \valtype^\ast \to \resulttype \\
+     \vec(\valtype) \to \vec(\valtype) \\
    \end{array}
+
+.. note::
+   In the current version of WebAssembly,
+   the length of the result type vector of a function may be at most :math:`1`.
+   This restriction may be removed in future versions.
 
 
 .. _syntax-memtype:

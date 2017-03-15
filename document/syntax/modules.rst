@@ -29,6 +29,7 @@ and provide initialization logic in the form of :ref:`data <syntax-data>` and :r
 Each of the vectors -- and thus the entire module -- may be empty.
 
 
+.. _syntax-index:
 .. _syntax-typeidx:
 .. _syntax-funcidx:
 .. _syntax-tableidx:
