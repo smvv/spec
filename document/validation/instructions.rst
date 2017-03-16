@@ -6,15 +6,58 @@ Instructions
 
 :ref:`Instructions <syntax-instr>` are classified by :ref:`function types <syntax-functype>` :math:`[t_1^\ast] \to [t_2^\ast]`.
 The types describe which types :math:`t_1^\ast` of argument values an instruction pops off the operand stack and which types :math:`t_2^\ast` of result values it pushes back to it.
-This extends to :ref:`instruction sequences <valid-instr-seq>`.
 
 .. note::
    For example, the instruction :math:`\K{i32.add}` has type :math:`[\I32~\I32] \to [\I32]`,
    consuming two |I32| values and producing one.
-   The instruction :math:`\SETLOCAL~x` has type :math:`[t] \to []`,
-   consuming one value of type :math:`t`,
-   provided that is the type of local :math:`x`,
-   and producing none.
+
+Typing extends to :ref:`instruction sequences <valid-instr-seq>` :math:`\instr^\ast`.
+Such a sequence has a :ref:`function types <syntax-functype>` :math:`[t_1^\ast] \to [t_2^\ast]` if the accumulative effect of executing the instructions is consuming values of types :math:`t_1^\ast` off the operand stack and pushing new values of types :math:`t_2^\ast`.
+
+.. _polymorphism:
+
+For some instructions, the typing rules do not fully constrain the type,
+and therefor allow for multiple types.
+Such instructions are called *polymorphic*.
+Two degrees of polymorphism can be distinguished:
+
+* *value-polymorphic*:
+  the :ref:`value type <syntax-valtype>` :math:`t` of one or several individual operands is unconstrained.
+  That is the case for all :ref:`parametric instructions <valid-instr-parametric>` like |DROP| and |SELECT|.
+
+
+* *stack-polymorphic*:
+  the entire (or most of the) :ref:`function type <syntax-functype>` :math:`[t_1^\ast] \to [t_2^\ast]` of the instruction is unconstrained.
+  That is the case for all :ref:`control instructions <valid-instr-control>` that perform an *unconditional control transfer*, such as |UNREACHABLE|, |BR|, |BRTABLE|, and |RETURN|.
+
+In both cases, the unconstrained types or type sequences can be chosen arbitrarily, as long as they meet the constraints imposed for the surrounding parts of the program.
+
+.. note::
+   For example, the |SELECT| instruction is valid with type :math:`[t~t~\I32] \to [t]`, for any possible :ref:`value type <syntax-valtype>` :math:`t`.   Consequently, both instruction sequences
+
+   .. math::
+      (\K{i32.const}~1)~~(\K{i32.const}~2)~~(\K{i32.const}~3)~~\SELECT{}
+
+   and
+
+   .. math::
+      (\K{f64.const}~1.0)~~(\K{f64.const}~2.0)~~(\K{i32.const}~3)~~\SELECT{}
+
+   are valid, with :math:`t` in the typing of |SELECT| being instantiated to |I32| or |F64|, respectively.
+
+   The |UNREACHABLE| instruction is valid with type :math:`[t_1^\ast] \to [t_2^\ast]` for any possible sequences of value types :math:`t_1^\ast` and :math:`t_2^\ast`.
+   Consequently,
+
+   .. math::
+      \UNREACHABLE~~\K{i32.add}
+
+   is valid by assuming type :math:`[] \to [\I32~\I32]` for the |UNREACHABLE| instruction.
+   In contrast,
+
+   .. math::
+      \UNREACHABLE~~(\K{i64.const}~0)~~\K{i32.add}
+
+   is invalid, because there is no possible type to pick for the |UNREACHABLE| instruction that would make the sequence well-typed.
 
 
 .. _valid-instr-numeric:
@@ -24,6 +67,62 @@ This extends to :ref:`instruction sequences <valid-instr-seq>`.
 
 Numeric Instructions
 ~~~~~~~~~~~~~~~~~~~~
+
+In this section, the following grammar shorthands are adopted:
+
+.. math::
+   \begin{array}{llll}
+   \production{unary operators} & \unop &::=&
+     \K{clz} ~|~
+     \K{ctz} ~|~
+     \K{popcnt} ~|~
+     \K{abs} ~|~
+     \K{neg} ~|~
+     \K{sqrt} ~|~
+     \K{ceil} ~|~ 
+     \K{floor} ~|~ 
+     \K{trunc} ~|~ 
+     \K{nearest} \\
+   \production{binary operators} & \binop &::=&
+     \K{add} ~|~
+     \K{sub} ~|~
+     \K{mul} ~|~
+     \K{div} ~|~
+     \K{div\_}\sx ~|~
+     \K{rem\_}\sx ~|~
+     \K{min} ~|~
+     \K{max} ~|~
+     \K{copysign} ~|~ \\&&&
+     \K{and} ~|~
+     \K{or} ~|~
+     \K{xor} ~|~
+     \K{shl} ~|~
+     \K{shr\_}\sx ~|~
+     \K{rotl} ~|~
+     \K{rotr} \\
+   \production{test operators} & \testop &::=&
+     \K{eqz} \\
+   \production{relational operators} & \relop &::=&
+     \K{eq} ~|~
+     \K{ne} ~|~
+     \K{lt} ~|~
+     \K{gt} ~|~
+     \K{le} ~|~
+     \K{ge} ~|~
+     \K{lt\_}\sx ~|~
+     \K{gt\_}\sx ~|~
+     \K{le\_}\sx ~|~
+     \K{ge\_}\sx \\
+   \production{conversion operators} & \cvtop &::=&
+     \K{wrap} ~|~
+     \K{extend\_}\sx ~|~
+     \K{trunc\_}\sx ~|~
+     \K{convert\_}\sx ~|~
+     \K{demote} ~|~
+     \K{promote} ~|~
+     \K{reinterpret} \\
+   \end{array}
+
 
 :math:`t \K{.const}~c`
 ......................
@@ -132,8 +231,7 @@ Parametric Instructions
    }
 
 .. note::
-   Both |DROP| and |SELECT| are *polymorphic* instructions.
-   The :ref:`value type <syntax-valtype>` :math:`t` can be chosen arbitrarily, as long as it meets the constraints imposed for the surrounding parts of the program.
+   Both |DROP| and |SELECT| are :ref:`value-polymorphic <polymorphism>` instructions.
 
 
 .. _valid-instr-variable:
@@ -379,9 +477,7 @@ Control Instructions
    }
 
 .. note::
-   The |UNREACHABLE| instruction is *stack-polymorphic*.
-   There is no constraint on its input types nor its output types nor their arity.
-   They can be chosen arbitrarily, as long as they meet the constraints imposed for the surrounding parts of the program.
+   The |UNREACHABLE| instruction is :ref:`stack-polymorphic <polymorphism>`.
 
 
 :math:`\BLOCK~t^?~\instr^\ast~\END`
@@ -460,10 +556,7 @@ Control Instructions
    }
 
 .. note::
-   The |BR| instruction is *stack-polymorphic*.
-   Other than the label parameter :math:`t^?`, if non-empty, being the last argument,
-   there is no constraint on its input types nor its output types nor their arity.
-   They can be chosen arbitrarily, as long as they meet the constraints imposed for the surrounding parts of the program.
+   The |BR| instruction is :ref:`stack-polymorphic <polymorphism>`.
 
 
 :math:`\BRIF~l`
@@ -508,10 +601,7 @@ Control Instructions
    }
 
 .. note::
-   The |BRTABLE| instruction is *stack-polymorphic*.
-   Other than the label parameter :math:`t^?`, if non-empty, and the |I32| index being the last parameters,
-   there is no constraint on its input types nor its output types nor their arity.
-   They can be chosen arbitrarily, as long as they meet the constraints imposed for the surrounding parts of the program.
+   The |BRTABLE| instruction is :ref:`stack-polymorphic <polymorphism>`.
 
 
 :math:`\RETURN`
@@ -531,10 +621,7 @@ Control Instructions
    }
 
 .. note::
-   The |RETURN| instruction is *stack-polymorphic*.
-   Other than the label parameter :math:`t^?`, if non-empty, being the last argument,
-   there is no constraint on its input types nor its output types nor their arity.
-   They can be chosen arbitrarily, as long as they meet the constraints imposed for the surrounding parts of the program.
+   The |RETURN| instruction is :ref:`stack-polymorphic <polymorphism>`.
 
 
 :math:`\CALL~x`
@@ -576,6 +663,46 @@ Control Instructions
 
 
 .. _valid-instr-seq:
+.. index:: instruction
 
 Instruction Sequences
 ~~~~~~~~~~~~~~~~~~~~~
+
+Typing of instruction sequences is defined recursively.
+
+
+Empty Instruction Sequence: :math:`\epsilon`
+............................................
+
+* The empty instruction sequence is valid with type :math:`[t^\ast] \to [t^\ast]`,
+  for any sequence of :ref:`value types <syntax-valtype>` :math:`t^\ast`.
+
+.. math::
+   \frac{
+   }{
+     C \vdash \epsilon : [t^\ast] \to [t^\ast]
+   }
+
+
+Non-empty Instruction Sequence: :math:`\instr^\ast~\instr'`
+...........................................................
+
+* The instruction sequence :math:`\instr^\ast` must be valid with type :math:`[t_1^\ast] \to [t_2^\ast]`,
+  for some sequences of :ref:`value types <syntax-valtype>` :math:`t_1^\ast` and :math:`t_2^\ast`.
+
+* The instruction :math:`\instr'` must be valid with type :math:`[t^\ast] \to [t_3^\ast]`,
+  for some sequences of :ref:`value types <syntax-valtype>` :math:`t^\ast` and :math:`t_3^\ast`.
+
+* There must be a sequence of :ref:`value types <syntax-valtype>` :math:`t_0^\ast`,
+  such that :math:`t_2^\ast = t_0^\ast~t^\ast`.
+
+* Then the combined instruction sequence is valid with type :math:`[t_1^\ast] \to [t_0^\ast~t_3^\ast]`.
+
+.. math::
+   \frac{
+     C \vdash \instr^\ast : [t_1^\ast] \to [t_0^\ast~t^\ast]
+     \qquad
+     C \vdash \instr' : [t^\ast] \to [t_3^\ast]
+   }{
+     C \vdash \instr^\ast~\instr' : [t_1^\ast] \to [t_0^\ast~t_3^\ast]
+   }

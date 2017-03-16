@@ -76,8 +76,23 @@ In addition to field access :math:`C.\K{field}` the following notation is adopte
 Textual Notation
 ~~~~~~~~~~~~~~~~
 
-.. todo::
-   Describe conventions
+Validation is specified by stylised rules for each relevant part of the :ref:`abstract syntax <syntax>`.
+The rules not only state constraints defining when a phrase is valid,
+they also classify it with a type.
+A phrase :math:`A` is said to be "valid with type :math:`T`",
+if all constraints expressed by the respective rules are met.
+The form of :math:`T` depends on what :math:`A` is.
+
+.. note::
+   For example, if :math:`A` is a :ref:`function <syntax-func>`,
+   then  :math:`T` is a :ref:`function type <syntax-functype>`;
+   for an :math:`A` that is a :ref:`global <syntax-global>`,
+   :math:`T` is a :ref:`global type <syntax-globaltype>`;
+   and so on.
+
+The rules implicitly assume a given :ref:`context <context>` :math:`C`.
+In some places, this context is locally extended to a context :math:`C'` with additional entries.
+The formulation "Under context :math:`C'`, ... *statement* ..." is adopted to express that the following statement must apply under the assumptions embodied in the extended context.
 
 
 Formal Notation
@@ -89,7 +104,7 @@ Formal Notation
 
 The proposition that a phrase :math:`A` has a respective type :math:`T` is written :math:`A : T`.
 In general, however, typing is dependent on the context :math:`C`.
-To express this, the complete form is a *judgement* :math:`C \vdash A : T`,
+To express this explicitly, the complete form is a *judgement* :math:`C \vdash A : T`,
 which says that :math:`A : T` holds under the assumptions encoded in :math:`C`.
 
 The formal typing rules use a standard approach for specifying type systems, rendering them into *deduction rules*.

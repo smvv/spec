@@ -177,3 +177,17 @@ External Types
      \MEM~\memtype ~|~ \\&&&
      \GLOBAL~\globaltype \\
    \end{array}
+
+
+Conventions
+...........
+
+The following auxiliary notation is defined for sequences of external types, filtering out entries of a specific kind in an order-preserving fashion:
+
+* :math:`\funcs(\externtype^\ast) = [\functype ~|~ \FUNC~\functype \in \externtype^\ast]`
+
+* :math:`\tables(\externtype^\ast) = [\tabletype ~|~ \TABLE~\tabletype \in \externtype^\ast]`
+
+* :math:`\mems(\externtype^\ast) = [\memtype ~|~ \MEM~\memtype \in \externtype^\ast]`
+
+* :math:`\globals(\externtype^\ast) = [\globaltype ~|~ \GLOBAL~\globaltype \in \externtype^\ast]`
