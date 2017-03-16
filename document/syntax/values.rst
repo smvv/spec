@@ -103,13 +103,15 @@ Conventions
 Vectors
 ~~~~~~~
 
-*Vectors* are self-contained sequences of the form :math:`[A^n]` (or :math:`A^\ast`),
+*Vectors* are bounded sequences of the form :math:`[A^n]` (or :math:`A^\ast`),
 where the :math:`A`-s can either be values or complex constructions.
+A vector can have at most :math:`2^{32}-1` elements.
 
 .. math::
    \begin{array}{llll}
    \production{vectors} & \vec(A) &::=&
-     [A^\ast] \\
+     [A^n]
+     & (n < 2^{32})\\
    \end{array}
 
 
