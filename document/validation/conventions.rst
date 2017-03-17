@@ -40,7 +40,7 @@ which collects relevant information about the surrounding :ref:`module <syntax-m
 * *Locals*: the list of locals declared in the current function (including parameters), represented by their value type.
 * *Labels*: the stack of labels accessible from the current position, represented by their result type.
 
-In other words, a context contains a vector of suitable :ref:`types <syntax-types>` for each :ref:`index space <syntax-index>`,
+In other words, a context contains a sequence of suitable :ref:`types <syntax-types>` for each :ref:`index space <syntax-index>`,
 describing each defined entry in that space.
 Locals and labels are only used for validating :ref:`instructions <syntax-instr>` in :ref:`function bodies <syntax-func>`, and are left empty elsewhere.
 The label stack is the only part of the context that changes as validation of an instruction sequence proceeds.
@@ -51,22 +51,28 @@ It is convenient to define contexts as :ref:`records <syntax-record>` :math:`C` 
    \begin{array}{llll}
    \production{(context)} & C &::=&
      \begin{array}[t]{l@{~}ll}
-     \{ & \TYPES & \vec(\functype), \\
-        & \FUNCS & \vec(\functype), \\
-        & \TABLES & \vec(\tabletype), \\
-        & \MEMS & \vec(\memtype), \\
-        & \GLOBALS & \vec(\globaltype), \\
-        & \LOCALS & \vec(\valtype), \\
-        & \LABELS & \vec(\resulttype) ~\} \\
+     \{ & \TYPES & \functype^\ast, \\
+        & \FUNCS & \functype^\ast, \\
+        & \TABLES & \tabletype^\ast, \\
+        & \MEMS & \memtype^\ast, \\
+        & \GLOBALS & \globaltype^\ast, \\
+        & \LOCALS & \valtype^\ast, \\
+        & \LABELS & \resulttype^\ast ~\} \\
      \end{array}
    \end{array}
 
+.. note::
+   The fields of a context are not defined as :ref:`vectors <syntax-vec>`,
+   since their lengths are not bounded by the maximum vector size.
+
 In addition to field access :math:`C.\K{field}` the following notation is adopted for manipulating contexts:
 
-* :math:`C,\K{field}\,A^\ast` denotes the same context as :math:`C` but with the elements :math:`A^\ast` prepended to its :math:`\K{field}` component vector.
+* When spelling out a context, empty fields are omitted.
+
+* :math:`C,\K{field}\,A^\ast` denotes the same context as :math:`C` but with the elements :math:`A^\ast` prepended to its :math:`\K{field}` component sequence.
 
 .. note::
-   Note that the notation is defined to *prepend* not *append*.
+   This notation is defined to *prepend* not *append*.
    It is only used in situations where the original :math:`C.\K{field}` is either empty
    or :math:`\K{field}` is :math:`\K{labels}`.
    In the latter case adding to the front is desired

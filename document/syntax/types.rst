@@ -73,7 +73,7 @@ mapping a vector of parameters to a vector of results.
 .. math::
    \begin{array}{llll}
    \production{function types} & \functype &::=&
-     \vec(\valtype) \to \vec(\valtype) \\
+     [\vec(\valtype)] \to [\vec(\valtype)] \\
    \end{array}
 
 .. note::
@@ -141,7 +141,7 @@ A table of that type thus contains references to functions of heterogeneous type
 
 
 .. _syntax-globaltype:
-.. index:: ! global type, value type
+.. index:: ! global type, ! mutability, value type
    pair: abstract syntax; global type
    pair: abstract syntax; mutability
    pair: global; type
@@ -155,7 +155,10 @@ Global Types
 .. math::
    \begin{array}{llll}
    \production{global types} & \globaltype &::=&
-     \MUT^?~\valtype \\
+     \mut^?~\valtype \\
+   \production{mutability} & \mut &::=&
+     \CONST ~|~
+     \MUT \\
    \end{array}
 
 

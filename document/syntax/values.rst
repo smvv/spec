@@ -103,24 +103,16 @@ Conventions
 Vectors
 ~~~~~~~
 
-*Vectors* are bounded sequences of the form :math:`[A^n]` (or :math:`A^\ast`),
+*Vectors* are bounded sequences of the form :math:`A^n` (or :math:`A^\ast`),
 where the :math:`A`-s can either be values or complex constructions.
 A vector can have at most :math:`2^{32}-1` elements.
 
 .. math::
    \begin{array}{llll}
    \production{vectors} & \vec(A) &::=&
-     [A^n]
+     A^n
      & (n < 2^{32})\\
    \end{array}
-
-
-Conventions
-...........
-
-* :math:`|V|` denotes the length of a vector :math:`V`.
-
-* :math:`V[i]` denotes the :math:`i`-th element of a vector :math:`V`, starting from :math:`0`.
 
 
 .. _syntax-name:

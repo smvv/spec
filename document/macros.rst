@@ -81,7 +81,7 @@
 .. |memtype| mathmacro:: \href{../syntax/types.html#syntax-memtype}{\mathit{memtype}}
 .. |externtype| mathmacro:: \href{../syntax/types.html#syntax-externtype}{\mathit{externtype}}
 .. |limits| mathmacro:: \href{../syntax/types.html#syntax-limits}{\mathit{limits}}
-.. |mut| mathmacro:: \href{../syntax/types.html#syntax-mut}{\mathit{mutability}}
+.. |mut| mathmacro:: \href{../syntax/types.html#syntax-mut}{\mathit{mut}}
 
 
 .. Indices

@@ -298,13 +298,13 @@ Variable Instructions
 
 * The global :math:`C.\GLOBALS[x]` must be defined in the context.
 
-* Let :math:`\MUT^?~t` be the :ref:`value type <syntax-globaltype>` :math:`C.\LOCALS[x]`.
+* Let :math:`\mut~t` be the :ref:`value type <syntax-globaltype>` :math:`C.\LOCALS[x]`.
 
 * Then the instruction is valid with type :math:`[] \to [t]`.
 
 .. math::
    \frac{
-     C.\GLOBALS[x] = \MUT^?~t
+     C.\GLOBALS[x] = \mut~t
    }{
      C \vdash \GETGLOBAL~x : [] \to [t]
    }
@@ -315,9 +315,9 @@ Variable Instructions
 
 * The global :math:`C.\GLOBALS[x]` must be defined in the context.
 
-* Let :math:`\MUT^?~t` be the :ref:`global type <syntax-globaltype>` :math:`C.\GLOBALS[x]`.
+* Let :math:`\mut~t` be the :ref:`global type <syntax-globaltype>` :math:`C.\GLOBALS[x]`.
 
-* The mutability annotation :math:`\MUT^?` must not be empty (that is, :math:`x` must be mutable).
+* The mutability :math:`\mut` must be |MUT|.
 
 * Then the instruction is valid with type :math:`[t] \to []`.
 

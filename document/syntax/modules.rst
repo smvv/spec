@@ -297,7 +297,7 @@ The |START| component of a module optionally declares the :ref:`function index <
 .. math::
    \begin{array}{llll}
    \production{start function} & \start &::=&
-     \funcidx \\
+     \{ \FUNC~\funcidx \} \\
    \end{array}
 
 
