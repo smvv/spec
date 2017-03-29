@@ -321,7 +321,7 @@ Variable Instructions
 
 * The global :math:`C.\GLOBALS[x]` must be defined in the context.
 
-* Let :math:`\mut~t` be the :ref:`value type <syntax-globaltype>` :math:`C.\LOCALS[x]`.
+* Let :math:`\mut~t` be the :ref:`global type <syntax-globaltype>` :math:`C.\GLOBALS[x]`.
 
 * Then the instruction is valid with type :math:`[] \to [t]`.
 

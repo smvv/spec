@@ -146,9 +146,9 @@
 .. |export| mathdef:: \xref{syntax/modules}{syntax-export}{\X{export}}
 .. |importdesc| mathdef:: \xref{syntax/modules}{syntax-importdesc}{\X{importdesc}}
 .. |exportdesc| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\X{exportdesc}}
-.. |elem| mathdef:: \xref{syntax/modules}{syntax-elemseg}{\X{elem}}
-.. |data| mathdef:: \xref{syntax/modules}{syntax-dataseg}{\X{data}}
-.. |start| mathdef:: \xref{syntax/modules}{syntax-dataseg}{\X{start}}
+.. |elem| mathdef:: \xref{syntax/modules}{syntax-elem}{\X{elem}}
+.. |data| mathdef:: \xref{syntax/modules}{syntax-data}{\X{data}}
+.. |start| mathdef:: \xref{syntax/modules}{syntax-start}{\X{start}}
 
 
 .. Modules, meta functions
@@ -247,3 +247,28 @@
 
 .. |instr| mathdef:: \xref{syntax/instructions}{syntax-instr}{\X{instr}}
 .. |expr| mathdef:: \xref{syntax/instructions}{syntax-expr}{\X{expr}}
+
+
+.. Store, terminals
+
+.. |INST| mathdef:: \xref{execution/conventions}{syntax-funcinst}{\K{inst}}
+
+.. |INSTS| mathdef:: \xref{execution/conventions}{syntax-store}{\K{insts}}
+.. |ELEMS| mathdef:: \xref{execution/conventions}{syntax-tableinst}{\K{elems}}
+
+
+.. Store, non-terminals
+
+.. |val| mathdef:: \xref{execution/conventions}{syntax-val}{\X{val}}
+
+.. |addr| mathdef:: \xref{execution/conventions}{syntax-addr}{\X{addr}}
+.. |tableaddr| mathdef:: \xref{execution/conventions}{syntax-tableaddr}{\X{tableaddr}}
+.. |memaddr| mathdef:: \xref{execution/conventions}{syntax-memaddr}{\X{memaddr}}
+.. |globaladdr| mathdef:: \xref{execution/conventions}{syntax-globaladdr}{\X{globaladdr}}
+
+.. |moduleinst| mathdef:: \xref{execution/conventions}{syntax-moduleinst}{\X{moduleinst}}
+.. |funcinst| mathdef:: \xref{execution/conventions}{syntax-funcinst}{\X{funcinst}}
+.. |tableinst| mathdef:: \xref{execution/conventions}{syntax-tableinst}{\X{tableinst}}
+.. |funcelem| mathdef:: \xref{execution/conventions}{syntax-funcelem}{\X{funcelem}}
+.. |meminst| mathdef:: \xref{execution/conventions}{syntax-meminst}{\X{meminst}}
+.. |globalinst| mathdef:: \xref{execution/conventions}{syntax-globalinst}{\X{globalinst}}

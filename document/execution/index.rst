@@ -5,5 +5,5 @@ Execution
    :maxdepth: 2
 
    conventions
-   invocation
+   modules
    instructions
